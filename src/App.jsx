@@ -130,73 +130,439 @@ const Icons = {
 };
 
 const MASTER_RECIPES = [
-  // --- ПТИЦА (ИНДЕЙКА И КУРИЦА) ---
+  // ===================== ЗАВТРАКИ =====================
   {
-    id: 'rec_turkey_dinner',
-    title: 'Запеченное филе индейки с травами и рисом',
-    imageUrl: 'https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=700&q=80',
+    id: 'rec_curd_pancakes',
+    title: 'Пышные сырники из фермерского творога',
+    imageUrl: 'https://images.unsplash.com/photo-1579954115545-a95591f28bfc?auto=format&fit=crop&w=700&q=80',
     difficulty: 'Легко',
-    mealType: 'dinner',
-    courseType: 'main',
-    prepTimeMin: 35,
-    calories: 410,
-    proteins: 46,
-    fats: 12,
-    carbs: 28,
-    tags: ['Птица', 'Высокий белок'],
-    equipment: ['Форма для запекания', 'Кастрюля 2 л', 'Доска'],
+    mealType: 'breakfast',
+    courseType: 'breakfast',
+    prepTimeMin: 20,
+    calories: 380,
+    proteins: 31,
+    fats: 14,
+    carbs: 32,
+    tags: ['Завтрак', 'Творог', 'С молочкой'],
+    equipment: ['Сковорода 26 см', 'Лопатка', 'Стакан'],
     isBatchable: true,
-    batchLabel: 'Готовка на 2 дня',
+    batchLabel: 'Хранение 48ч',
     chainRole: 'initiator',
-    linkedIngredient: 'ing_turkey_breast',
+    linkedIngredient: 'ing_curd_5',
     baseIngredients: [
-      { id: 'ing_turkey_breast', name: 'Филе грудки индейки', gramsPerPerson: 180, category: 'Мясо и птица' },
-      { id: 'ing_rice', name: 'Рис жасмин (отварной)', gramsPerPerson: 80, category: 'Бакалея', isSharedSide: true },
-      { id: 'ing_broccoli', name: 'Брокколи свежая', gramsPerPerson: 120, category: 'Овощи и зелень' },
-      { id: 'ing_oil', name: 'Оливковое / Растительное масло', gramsPerPerson: 10, category: 'Бакалея', isPantry: true }
+      { id: 'ing_curd_5', name: 'Творог 5% в пачке', gramsPerPerson: 180, category: 'Молочные продукты' },
+      { id: 'ing_eggs', name: 'Яйца куриные С1', gramsPerPerson: 50, category: 'Яйца' },
+      { id: 'ing_flour', name: 'Мука пшеничная / рисовая', gramsPerPerson: 35, category: 'Бакалея', isPantry: true },
+      { id: 'ing_sour_cream', name: 'Сметана 15%', gramsPerPerson: 40, category: 'Молочные продукты' }
     ],
     detailedSteps: [
       {
         stepNumber: 1,
-        title: 'Подготовка и просушка птицы',
-        instruction: 'Промойте филе индейки холодной водой и насухо промокните салфетками. Сделайте косые надрезы глубиной 3 мм.',
-        durationSec: 180,
-        visualMarker: 'Сухая поверхность мяса гарантирует запекание с золотистой корочкой.',
-        chefTip: 'Надрезы помогут маслу и специям проникнуть глубже в филе.'
+        title: 'Замес творожной основы',
+        instruction: 'Творог разомните вилкой, добавьте яйцо, соль, сахар и муку. Сформируйте шарики и подкрутите перевернутым стаканом.',
+        durationSec: 300,
+        visualMarker: 'Плотные ровные ресторанные шайбочки с высокими бортиками.',
+        chefTip: 'Вращение стаканом делает сырники идеально круглыми.'
       },
       {
         stepNumber: 2,
-        title: 'Маринование и прогрев духовки',
-        instruction: 'Разогрейте духовку до 190°C. Натрите индейку 1 ст. л. масла, солью и сухими травами.',
-        durationSec: 300,
-        heat: 'Духовка 190°C',
-        visualMarker: 'Равномерный масляный глянец на поверхности мяса.',
-        chefTip: 'Дайте мясу постоять 5 минут перед духовкой.'
-      },
-      {
-        stepNumber: 3,
-        title: 'Варка сквозного риса',
-        instruction: 'В кастрюле промойте рис, залейте водой 1:1.8. Доведите до кипения, убавьте на минимум (2 из 9) и варите под крышкой 12 минут.',
-        durationSec: 720,
-        heat: 'Слабый огонь (2 из 9)',
-        visualMarker: 'Вода впиталась, появились кратеры-паровые отверстия.',
-        chefTip: 'Половину риса отложим на завтрашний Wok-обед!'
-      },
-      {
-        stepNumber: 4,
-        title: 'Запекание индейки и брокколи',
-        instruction: 'Выложите филе и брокколи в форму. Запекайте 22-25 минут. Перед нарезкой дайте отдохнуть 4 минуты.',
-        durationSec: 1500,
-        heat: 'Духовка 190°C',
-        visualMarker: 'Выделяющийся сок в центре филе прозрачный, без розового оттенка.',
-        chefTip: 'Не режьте сразу из духовки, иначе сок вытечет на доску.'
+        title: 'Обжарка до золотистости',
+        instruction: 'Жарьте на умеренном огне по 3.5 минуты с каждой стороны под крышкой.',
+        durationSec: 420,
+        heat: 'Средне-слабый огонь (5 из 9)',
+        visualMarker: 'Золотистая корочка, сырник упруго пружинит.',
+        chefTip: 'Не делайте сильный огонь, чтобы середина пропеклась.'
       }
+    ]
+  },
+  {
+    id: 'rec_oatmeal_water_berries',
+    title: 'Монастырская овсяная каша на воде с яблоком и медом',
+    imageUrl: 'https://images.unsplash.com/photo-1584776296944-ab6fb57b0bdd?auto=format&fit=crop&w=700&q=80',
+    difficulty: 'Очень легко',
+    mealType: 'breakfast',
+    courseType: 'breakfast',
+    prepTimeMin: 12,
+    calories: 270,
+    proteins: 8,
+    fats: 4,
+    carbs: 52,
+    tags: ['Завтрак', 'Без лактозы', 'Постное', 'Злаки'],
+    equipment: ['Сотейник', 'Ложка'],
+    isBatchable: false,
+    batchLabel: 'Без лактозы',
+    chainRole: 'independent',
+    baseIngredients: [
+      { id: 'ing_oats', name: 'Овсяные хлопья длительной варки', gramsPerPerson: 65, category: 'Бакалея' },
+      { id: 'ing_apples', name: 'Яблоки сезонные', gramsPerPerson: 100, category: 'Овощи и зелень' }
     ],
-    chefTip: 'Сваренная двойная порция риса сэкономит 20 минут готовки на следующий день!'
+    detailedSteps: [
+      {
+        stepNumber: 1,
+        title: 'Варка овсянки на воде',
+        instruction: 'В сотейник налейте 220 мл воды со щепоткой соли, доведите до кипения. Всыпьте хлопья, варите 9 минут на тихом огне.',
+        durationSec: 540,
+        heat: 'Тихий огонь (2 из 9)',
+        visualMarker: 'Хлопья стали нежными и бархатистыми.',
+        chefTip: 'Варка на воде раскрывает природный ореховый вкус овса.'
+      },
+      {
+        stepNumber: 2,
+        title: 'Подача с хрустящими яблоками',
+        instruction: 'Яблоко нарежьте тонкими пластинками и выложите на теплую кашу.',
+        durationSec: 120,
+        visualMarker: 'Сочные контрастные слайсы фруктов поверх каши.',
+        chefTip: '100% безлактозный завтрак для энергии.'
+      }
+    ]
+  },
+  {
+    id: 'rec_millet_pumpkin_porridge',
+    title: 'Традиционная пшенная каша с печеной тыквой на воде',
+    imageUrl: 'https://images.unsplash.com/photo-1476718406336-bb5a9690ee2a?auto=format&fit=crop&w=700&q=80',
+    difficulty: 'Легко',
+    mealType: 'breakfast',
+    courseType: 'breakfast',
+    prepTimeMin: 22,
+    calories: 310,
+    proteins: 9,
+    fats: 5,
+    carbs: 58,
+    tags: ['Завтрак', 'Без лактозы', 'Русская кухня'],
+    equipment: ['Кастрюля с толстым дном'],
+    isBatchable: true,
+    batchLabel: 'Каша на 2 дня',
+    chainRole: 'initiator',
+    linkedIngredient: 'ing_millet',
+    baseIngredients: [
+      { id: 'ing_millet', name: 'Пшено шлифованное золотистое', gramsPerPerson: 70, category: 'Бакалея' },
+      { id: 'ing_pumpkin', name: 'Тыква свежая кубиком', gramsPerPerson: 100, category: 'Овощи и зелень' }
+    ],
+    detailedSteps: [
+      {
+        stepNumber: 1,
+        title: 'Промывка пшена и томление с тыквой',
+        instruction: 'Пшено ошпарьте кипятком, залейте 250 мл воды. Добавьте тыкву мелкими кубиками и варите под крышкой 18 минут.',
+        durationSec: 1080,
+        heat: 'Слабый огонь (3 из 9)',
+        visualMarker: 'Крупа стала рассыпчатой, тыква растушилась в мягкое пюре.',
+        chefTip: 'Ошпаривание кипятком убирает характерную горчинку пшена.'
+      }
+    ]
+  },
+  {
+    id: 'rec_omelette',
+    title: 'Пышный домашний омлет с томатами и свежим укропом',
+    imageUrl: 'https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=700&q=80',
+    difficulty: 'Очень легко',
+    mealType: 'breakfast',
+    courseType: 'breakfast',
+    prepTimeMin: 14,
+    calories: 270,
+    proteins: 21,
+    fats: 16,
+    carbs: 10,
+    tags: ['Завтрак', 'Без лактозы', 'Без глютена', 'Высокий белок'],
+    equipment: ['Сковорода с крышкой', 'Венчик'],
+    isBatchable: false,
+    batchLabel: 'Без лактозы',
+    chainRole: 'independent',
+    baseIngredients: [
+      { id: 'ing_eggs', name: 'Яйца куриные С1 (2 шт)', gramsPerPerson: 100, category: 'Яйца' },
+      { id: 'ing_tomatoes', name: 'Томаты свежие спелые', gramsPerPerson: 80, category: 'Овощи и зелень' },
+      { id: 'ing_dill', name: 'Свежий укроп', gramsPerPerson: 15, category: 'Овощи и зелень' }
+    ],
+    detailedSteps: [
+      {
+        stepNumber: 1,
+        title: 'Взбивание яиц со специями',
+        instruction: 'Яйца взбейте вилкой с солью и 2 ст. л. холодной воды для пышности (без капли молока!).',
+        durationSec: 120,
+        visualMarker: 'Однородная масса с пузырьками воздуха.',
+        chefTip: 'Вода испаряется паром и делает омлет воздушным без лактозы.'
+      },
+      {
+        stepNumber: 2,
+        title: 'Томление под крышкой',
+        instruction: 'Томаты нарежьте кружками, припустите на сковороде 1 минуту, залейте яйцами, посыпьте укропом и накройте крышкой на 5 минут.',
+        durationSec: 300,
+        heat: 'Слабый огонь (3 из 9)',
+        visualMarker: 'Омлет пышно поднялся, поверхность стала матовой.',
+        chefTip: 'Не открывайте крышку во время томления.'
+      }
+    ]
+  },
+  {
+    id: 'rec_potato_draniki',
+    title: 'Хрустящие картофельные драники по-домашнему',
+    imageUrl: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=700&q=80',
+    difficulty: 'Легко',
+    mealType: 'breakfast',
+    courseType: 'breakfast',
+    prepTimeMin: 20,
+    calories: 340,
+    proteins: 10,
+    fats: 12,
+    carbs: 46,
+    tags: ['Завтрак', 'Без лактозы', 'Русская кухня'],
+    equipment: ['Терка', 'Сковорода 26 см'],
+    isBatchable: false,
+    batchLabel: 'Без лактозы',
+    chainRole: 'independent',
+    baseIngredients: [
+      { id: 'ing_potatoes', name: 'Картофель отборный', gramsPerPerson: 220, category: 'Овощи и зелень' },
+      { id: 'ing_eggs', name: 'Яйца куриные С1 (1 шт)', gramsPerPerson: 50, category: 'Яйца' },
+      { id: 'ing_flour', name: 'Мука пшеничная в/с', gramsPerPerson: 20, category: 'Бакалея', isPantry: true }
+    ],
+    detailedSteps: [
+      {
+        stepNumber: 1,
+        title: 'Натирание и отжим картофеля',
+        instruction: 'Натрите картофель на средней терке и слегка отожмите сок. Смешайте с яйцом, мукой и солью.',
+        durationSec: 300,
+        visualMarker: 'Вязкая картофельная масса без лишней лужи сока.',
+        chefTip: 'Отжим гарантирует аппетитный хруст.'
+      },
+      {
+        stepNumber: 2,
+        title: 'Обжаривание оладий',
+        instruction: 'Выкладывайте ложкой на прогретую сковороду. Жарьте по 3-4 минуты с каждой стороны до золотистой корочки.',
+        durationSec: 420,
+        heat: 'Средний огонь (6 из 9)',
+        visualMarker: 'Хрустящая янтарная корочка по краям.',
+        chefTip: 'Сытный традиционный завтрак без капли молочных продуктов.'
+      }
+    ]
+  },
+  {
+    id: 'rec_shakshuka',
+    title: 'Шакшука по-домашнему со спелыми томатами и зеленью',
+    imageUrl: 'https://images.unsplash.com/photo-1590412200988-a436970781fa?auto=format&fit=crop&w=700&q=80',
+    difficulty: 'Легко',
+    mealType: 'breakfast',
+    courseType: 'breakfast',
+    prepTimeMin: 18,
+    calories: 310,
+    proteins: 19,
+    fats: 17,
+    carbs: 16,
+    tags: ['Завтрак', 'Без лактозы', 'Без глютена'],
+    equipment: ['Сковорода с крышкой', 'Лопатка'],
+    isBatchable: false,
+    batchLabel: 'Без лактозы',
+    chainRole: 'independent',
+    baseIngredients: [
+      { id: 'ing_eggs', name: 'Яйца куриные С1 (2 шт)', gramsPerPerson: 100, category: 'Яйца' },
+      { id: 'ing_tomatoes', name: 'Томаты свежие спелые', gramsPerPerson: 130, category: 'Овощи и зелень' },
+      { id: 'ing_dill', name: 'Свежая зелень', gramsPerPerson: 15, category: 'Овощи и зелень' }
+    ],
+    detailedSteps: [
+      {
+        stepNumber: 1,
+        title: 'Тушение томатного соуса',
+        instruction: 'Томаты мелко нарежьте кубиком, тушите на сковороде 5 минут со щепоткой соли до состояния густого соуса.',
+        durationSec: 300,
+        heat: 'Средний огонь (5 из 9)',
+        visualMarker: 'Соус загустел и начал лениво булькать.',
+        chefTip: 'Естественный томатный сок дает приятную кислинку.'
+      },
+      {
+        stepNumber: 2,
+        title: 'Запекание яиц',
+        instruction: 'Сделайте углубления, разбейте туда яйца, накройте крышкой на 4 минуты до схватывания белка.',
+        durationSec: 240,
+        heat: 'Слабый огонь (3 из 9)',
+        visualMarker: 'Белок матово-белый, желток жидкий и кремовый.',
+        chefTip: '100% безлактозный ресторанный завтрак.'
+      }
+    ]
+  },
+
+  // ===================== ПЕРВЫЕ БЛЮДА (СУПЫ) =====================
+  {
+    id: 'rec_borscht_classic',
+    title: 'Классический домашний борщ со свеклой и говядиной',
+    imageUrl: 'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=700&q=80',
+    difficulty: 'Средняя',
+    mealType: 'lunch',
+    courseType: 'soup',
+    prepTimeMin: 45,
+    calories: 360,
+    proteins: 29,
+    fats: 11,
+    carbs: 34,
+    tags: ['Суп', 'Русская кухня', 'Сытное', 'Говядина'],
+    equipment: ['Кастрюля 3 л', 'Терка', 'Доска'],
+    isBatchable: true,
+    batchLabel: 'Борщ на 2 дня',
+    chainRole: 'initiator',
+    linkedIngredient: 'ing_beef_stew',
+    baseIngredients: [
+      { id: 'ing_beef_stew', name: 'Говядина духовая лоток', gramsPerPerson: 130, category: 'Мясо и птица' },
+      { id: 'ing_beets', name: 'Свекла свежая мытая', gramsPerPerson: 90, category: 'Овощи и зелень' },
+      { id: 'ing_cabbage', name: 'Капуста белокочанная', gramsPerPerson: 80, category: 'Овощи и зелень' },
+      { id: 'ing_potatoes', name: 'Картофель отборный', gramsPerPerson: 80, category: 'Овощи и зелень' },
+      { id: 'ing_dill', name: 'Свежий укроп', gramsPerPerson: 10, category: 'Овощи и зелень' }
+    ],
+    detailedSteps: [
+      {
+        stepNumber: 1,
+        title: 'Варка прозрачного мясного бульона',
+        instruction: 'Говядину нарежьте кусочками 2.5 см, залейте холодной водой, доведите до кипения и снимите пену. Варите 25 минут на тихом огне.',
+        durationSec: 1500,
+        heat: 'Тихий огонь (3 из 9)',
+        visualMarker: 'Чистый прозрачный ароматный бульон.',
+        chefTip: 'Снятие первой пены гарантирует кристальную прозрачность.'
+      },
+      {
+        stepNumber: 2,
+        title: 'Закладка корнеплодов и капусты',
+        instruction: 'Добавьте картофель кубиком, нашинкованную капусту и натертую свеклу. Варите 15 минут.',
+        durationSec: 900,
+        heat: 'Слабый огонь (4 из 9)',
+        visualMarker: 'Борщ приобретает рубиновый благородный цвет.',
+        chefTip: 'На второй день борщ становится вдвое насыщеннее!'
+      }
+    ]
+  },
+  {
+    id: 'rec_shchi_fresh_cabbage',
+    title: 'Традиционные русские щи из свежей капусты с цыпленком',
+    imageUrl: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=700&q=80',
+    difficulty: 'Легко',
+    mealType: 'lunch',
+    courseType: 'soup',
+    prepTimeMin: 30,
+    calories: 290,
+    proteins: 28,
+    fats: 7,
+    carbs: 26,
+    tags: ['Суп', 'Русская кухня', 'Птица', 'Без лактозы'],
+    equipment: ['Кастрюля 2.5 л', 'Нож шефа'],
+    isBatchable: true,
+    batchLabel: 'Щи на 2 дня',
+    chainRole: 'initiator',
+    linkedIngredient: 'ing_chicken_breast',
+    baseIngredients: [
+      { id: 'ing_chicken_breast', name: 'Филе цыпленка охлажденное', gramsPerPerson: 120, category: 'Мясо и птица' },
+      { id: 'ing_cabbage', name: 'Капуста свежая соломкой', gramsPerPerson: 120, category: 'Овощи и зелень' },
+      { id: 'ing_potatoes', name: 'Картофель кубиком', gramsPerPerson: 90, category: 'Овощи и зелень' },
+      { id: 'ing_carrots', name: 'Морковь мытая', gramsPerPerson: 50, category: 'Овощи и зелень' }
+    ],
+    detailedSteps: [
+      {
+        stepNumber: 1,
+        title: 'Варка легкого куриного бульона',
+        instruction: 'Куриное филе нарежьте кубиком, опустите в 1.3 л воды, доведите до кипения, снимите пену и варите 10 минут.',
+        durationSec: 600,
+        heat: 'Средний огонь (5 из 9)',
+        visualMarker: 'Светлый чистый золотистый бульон.',
+        chefTip: 'Куриное филе варится быстрее говядины.'
+      },
+      {
+        stepNumber: 2,
+        title: 'Закладка капусты и картофеля',
+        instruction: 'Всыпьте тонко нашинкованную капусту, картофель и натертую морковь. Варите 14 минут под крышкой.',
+        durationSec: 840,
+        heat: 'Тихий огонь (3 из 9)',
+        visualMarker: 'Капуста стала прозрачной и мягкой, но сохраняет легкую текстуру.',
+        chefTip: 'Традиционное легкое обеденное блюдо.'
+      }
+    ]
+  },
+  {
+    id: 'rec_ukha_cod',
+    title: 'Поморская уха из мурманской трески с картофелем',
+    imageUrl: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=700&q=80',
+    difficulty: 'Легко',
+    mealType: 'lunch',
+    courseType: 'soup',
+    prepTimeMin: 25,
+    calories: 280,
+    proteins: 31,
+    fats: 5,
+    carbs: 25,
+    tags: ['Суп', 'Рыба', 'Русская кухня', 'Без лактозы'],
+    equipment: ['Кастрюля 2.5 л', 'Шумовка'],
+    isBatchable: true,
+    batchLabel: 'Рыбный суп',
+    chainRole: 'initiator',
+    linkedIngredient: 'ing_cod_fillet',
+    baseIngredients: [
+      { id: 'ing_cod_fillet', name: 'Филе трески охлажденное', gramsPerPerson: 160, category: 'Рыба и морепродукты' },
+      { id: 'ing_potatoes', name: 'Картофель отборный', gramsPerPerson: 110, category: 'Овощи и зелень' },
+      { id: 'ing_carrots', name: 'Морковь кружочками', gramsPerPerson: 50, category: 'Овощи и зелень' },
+      { id: 'ing_dill', name: 'Свежий укроп', gramsPerPerson: 15, category: 'Овощи и зелень' }
+    ],
+    detailedSteps: [
+      {
+        stepNumber: 1,
+        title: 'Варка овощной основы',
+        instruction: 'В 1.2 л воды опустите нарезанный картофель и морковь, варите 10 минут почти до готовности.',
+        durationSec: 600,
+        heat: 'Средний огонь (6 из 9)',
+        visualMarker: 'Корнеплоды легко протыкаются ножом.',
+        chefTip: 'Рыба варится всего 6-8 минут, поэтому овощи закладываются первыми.'
+      },
+      {
+        stepNumber: 2,
+        title: 'Закладка трески и укропа',
+        instruction: 'Опустите крупные кусочки трески (3х3 см), убавьте огонь до минимума и томите 7 минут. Всыпьте укроп.',
+        durationSec: 420,
+        heat: 'Слабый огонь (2 из 9)',
+        visualMarker: 'Рыба распадается на белые перламутровые лепестки.',
+        chefTip: 'Не допускайте бурного кипения, чтобы треска не развалилась в кашу.'
+      }
+    ]
+  },
+  {
+    id: 'rec_meatball_soup',
+    title: 'Домашний суп с мясными фрикадельками и картофелем',
+    imageUrl: 'https://images.unsplash.com/photo-1541832676-9b763b0239ab?auto=format&fit=crop&w=700&q=80',
+    difficulty: 'Легко',
+    mealType: 'lunch',
+    courseType: 'soup',
+    prepTimeMin: 25,
+    calories: 330,
+    proteins: 28,
+    fats: 10,
+    carbs: 31,
+    tags: ['Суп', 'Сытное', 'Говядина', 'Без лактозы'],
+    equipment: ['Кастрюля 2.5 л', 'Доска'],
+    isBatchable: true,
+    batchLabel: 'Суп на 2 дня',
+    chainRole: 'consumer',
+    linkedIngredient: 'ing_beef_mince',
+    baseIngredients: [
+      { id: 'ing_beef_mince', name: 'Фарш говяжий (остаток лотка)', gramsPerPerson: 120, category: 'Мясо и птица' },
+      { id: 'ing_potatoes', name: 'Картофель кубиком', gramsPerPerson: 90, category: 'Овощи и зелень' },
+      { id: 'ing_carrots', name: 'Морковь натертая', gramsPerPerson: 40, category: 'Овощи и зелень' },
+      { id: 'ing_dill', name: 'Свежий укроп', gramsPerPerson: 10, category: 'Овощи и зелень' }
+    ],
+    detailedSteps: [
+      {
+        stepNumber: 1,
+        title: 'Формовка и варка фрикаделек',
+        instruction: 'Скатайте из фарша шарики размером с грецкий орех. Опустите в кипящую воду (1.2 л), варите 5 минут, снимая пенку.',
+        durationSec: 360,
+        heat: 'Средний огонь (6 из 9)',
+        visualMarker: 'Фрикадельки всплыли на поверхность.',
+        chefTip: 'Смочите руки холодной водой — фарш не будет липнуть к ладоням.'
+      },
+      {
+        stepNumber: 2,
+        title: 'Добавление картофеля и зелени',
+        instruction: 'Добавьте картофель и морковь, варите 12 минут. Посолите, всыпьте укроп и выключите плиту.',
+        durationSec: 720,
+        heat: 'Тихий огонь (3 из 9)',
+        visualMarker: 'Прозрачный наваристый суп с сочными мясными шариками.',
+        chefTip: 'Лоток говяжьего фарша полностью использован без остатка.'
+      }
+    ]
   },
   {
     id: 'rec_turkey_soup',
-    title: 'Суп-лапша с индейкой (Zero-Waste)',
+    title: 'Суп-лапша с индейкой (Zero-Waste утилизация)',
     imageUrl: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=700&q=80',
     difficulty: 'Очень легко',
     mealType: 'lunch',
@@ -206,7 +572,7 @@ const MASTER_RECIPES = [
     proteins: 32,
     fats: 8,
     carbs: 35,
-    tags: ['Суп', 'Zero-Waste'],
+    tags: ['Суп', 'Zero-Waste', 'Птица', 'Без лактозы'],
     equipment: ['Кастрюля 2.5 л', 'Шумовка', 'Нож'],
     isBatchable: false,
     batchLabel: 'Цепочка утилизации',
@@ -221,242 +587,183 @@ const MASTER_RECIPES = [
     detailedSteps: [
       {
         stepNumber: 1,
-        title: 'Нарезка индейки соломкой',
-        instruction: 'Оставшуюся часть филе индейки нарежьте соломкой 1.5х1.5 см поперек волокон.',
-        durationSec: 180,
-        visualMarker: 'Аккуратные ровные кусочки для быстрой варки.',
-        chefTip: 'Нарезка поперек волокон делает индейку мягкой.'
-      },
-      {
-        stepNumber: 2,
         title: 'Варка прозрачного бульона',
-        instruction: 'Залейте мясо 1.3 л холодной воды, доведите до кипения. Убавьте огонь (4 из 9) и снимите пену.',
+        instruction: 'Оставшуюся часть филе нарежьте соломкой, залейте водой, доведите до кипения и варите 10 минут на среднем огне.',
         durationSec: 600,
         heat: 'Средний огонь (4 из 9)',
-        visualMarker: 'Прозрачный золотистый бульон без хлопьев пены.',
-        chefTip: 'Не допускайте бурного кипения.'
-      },
-      {
-        stepNumber: 3,
-        title: 'Закладка моркови и лапши',
-        instruction: 'Морковь нарежьте соломкой, опустите в суп. Через 3 минуты всыпьте лапшу и варите 5 минут.',
-        durationSec: 360,
-        heat: 'Слабый огонь (3 из 9)',
-        visualMarker: 'Лапша мягкая, но сохраняет упругость аль-денте.',
-        chefTip: 'Яичная лапша варится быстрее обычной.'
-      },
-      {
-        stepNumber: 4,
-        title: 'Подача со свежим укропом',
-        instruction: 'Снимите с огня, всыпьте мелко рубленый укроп, накройте крышкой на 2 минуты.',
-        durationSec: 120,
-        heat: 'Выключено',
-        visualMarker: 'Яркий аромат свежей зелени.',
-        chefTip: 'Свежую зелень лучше не кипятить.'
-      }
-    ],
-    chefTip: 'Лоток индейки израсходован полностью без остатка!'
-  },
-  {
-    id: 'rec_chicken_fillet',
-    title: 'Запеченное филе цыпленка с картофелем по-деревенски',
-    imageUrl: 'https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=700&q=80',
-    difficulty: 'Легко',
-    mealType: 'dinner',
-    courseType: 'main',
-    prepTimeMin: 35,
-    calories: 430,
-    proteins: 44,
-    fats: 13,
-    carbs: 34,
-    tags: ['Птица', 'Без индейки', 'Без грибов'],
-    equipment: ['Противень', 'Пергамент', 'Миска'],
-    isBatchable: true,
-    batchLabel: 'Готовка на 2 дня',
-    chainRole: 'initiator',
-    linkedIngredient: 'ing_chicken_breast',
-    baseIngredients: [
-      { id: 'ing_chicken_breast', name: 'Филе цыпленка охлажденное', gramsPerPerson: 190, category: 'Мясо и птица' },
-      { id: 'ing_potatoes', name: 'Картофель отборный', gramsPerPerson: 180, category: 'Овощи и зелень' },
-      { id: 'ing_oil', name: 'Растительное масло', gramsPerPerson: 10, category: 'Бакалея', isPantry: true }
-    ],
-    detailedSteps: [
-      {
-        stepNumber: 1,
-        title: 'Нарезка картофеля дольками',
-        instruction: 'Картофель вымойте щеткой и нарежьте дольками толщиной 2 см. Обсушите салфеткой.',
-        durationSec: 240,
-        visualMarker: 'Одинаковые сухие дольки для хрустящей корочки.',
-        chefTip: 'Лишняя влага мешает подрумяниванию.'
+        visualMarker: 'Золотистый прозрачный бульон.',
+        chefTip: 'Нарезка соломкой ускоряет варку.'
       },
       {
         stepNumber: 2,
-        title: 'Пряная выкладка на противень',
-        instruction: 'Перемешайте картофель с 1 ч. л. масла, солью и паприкой. Выложите срезом вниз на пергамент.',
-        durationSec: 180,
-        heat: 'Духовка 200°C',
-        visualMarker: 'Дольки лежат в один слой без нагромождения.',
-        chefTip: 'Свободное пространство позволяет воздуху циркулировать.'
-      },
-      {
-        stepNumber: 3,
-        title: 'Подготовка цыпленка и запекание',
-        instruction: 'Филе разрежьте вдоль на плоские стейки, натрите солью и маслом, выложите рядом с картофелем. Запекайте 25 минут при 200°C.',
-        durationSec: 1500,
-        heat: 'Духовка 200°C',
-        visualMarker: 'Золотистые уголки картофеля и сочное белое мясо цыпленка.',
-        chefTip: 'Мясной сок пропитает картофель снизу.'
+        title: 'Закладка моркови и лапши',
+        instruction: 'Добавьте соломку моркови и лапшу. Варите 5 минут, снимите с огня и посыпьте укропом.',
+        durationSec: 360,
+        heat: 'Слабый огонь (3 из 9)',
+        visualMarker: 'Лапша мягкая, но упругая.',
+        chefTip: 'Лоток птицы израсходован полностью.'
       }
-    ],
-    chefTip: 'Вторая часть лотка цыпленка пойдет на прозрачный легкий суп!'
+    ]
   },
   {
-    id: 'rec_chicken_soup',
-    title: 'Легкий куриный суп с рисом и зеленью',
-    imageUrl: 'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=700&q=80',
+    id: 'rec_lentil_soup',
+    title: 'Нежный суп из красной чечевицы с морковью',
+    imageUrl: 'https://images.unsplash.com/photo-1546549032-9571cd6b27df?auto=format&fit=crop&w=700&q=80',
     difficulty: 'Очень легко',
     mealType: 'lunch',
     courseType: 'soup',
-    prepTimeMin: 25,
-    calories: 310,
-    proteins: 29,
-    fats: 7,
-    carbs: 33,
-    tags: ['Суп', 'Без индейки', 'Без глютена'],
-    equipment: ['Кастрюля 2.5 л', 'Терка', 'Лопатка'],
+    prepTimeMin: 20,
+    calories: 290,
+    proteins: 19,
+    fats: 5,
+    carbs: 42,
+    tags: ['Суп', 'Постное', 'Без мяса', 'Без лактозы'],
+    equipment: ['Кастрюля 2 л', 'Блендер'],
     isBatchable: true,
-    batchLabel: 'Готовка на 2 дня',
-    chainRole: 'consumer',
-    linkedIngredient: 'ing_chicken_breast',
+    batchLabel: 'Быстрый суп',
+    chainRole: 'independent',
     baseIngredients: [
-      { id: 'ing_chicken_breast', name: 'Филе цыпленка (кубиком)', gramsPerPerson: 110, category: 'Мясо и птица' },
-      { id: 'ing_rice', name: 'Рис жасмин', gramsPerPerson: 40, category: 'Бакалея' },
-      { id: 'ing_carrots', name: 'Морковь фермерская', gramsPerPerson: 50, category: 'Овощи и зелень' },
-      { id: 'ing_dill', name: 'Свежий укроп', gramsPerPerson: 15, category: 'Овощи и зелень' }
+      { id: 'ing_lentils', name: 'Чечевица красная', gramsPerPerson: 70, category: 'Бакалея' },
+      { id: 'ing_carrots', name: 'Морковь мытая', gramsPerPerson: 60, category: 'Овощи и зелень' },
+      { id: 'ing_potatoes', name: 'Картофель', gramsPerPerson: 70, category: 'Овощи и зелень' }
     ],
     detailedSteps: [
       {
         stepNumber: 1,
-        title: 'Нарезка и снятие пены',
-        instruction: 'Филе нарежьте кубиками 1.5 см, опустите в 1.2 л холодной воды. Доведите до кипения, снимите пену.',
-        durationSec: 300,
-        heat: 'Сильный огонь (8 из 9)',
-        visualMarker: 'Чистый прозрачный бульон.',
-        chefTip: 'Снятие первой пены гарантирует кристальную прозрачность.'
-      },
-      {
-        stepNumber: 2,
-        title: 'Закладка риса и моркови',
-        instruction: 'Всыпьте промытый рис и натертую морковь. Варите на слабом огне 14 минут под приоткрытой крышкой.',
-        durationSec: 840,
-        heat: 'Слабый огонь (3 из 9)',
-        visualMarker: 'Рис увеличился втрое, бульон приобрел теплый золотистый оттенок.',
-        chefTip: 'Мы не делаем масляную зажарку — суп легкий и полезный.'
-      },
-      {
-        stepNumber: 3,
-        title: 'Зелень и финальный настой',
-        instruction: 'Посолите, добавьте свежий укроп, выключите огонь и дайте постоять 5 минут перед подачей.',
-        durationSec: 300,
-        heat: 'Выключено',
-        visualMarker: 'Свежий укропный аромат.',
-        chefTip: 'На второй день суп становится еще вкуснее.'
-      }
-    ],
-    chefTip: 'Чистый прозрачный бульон без лишнего жира.'
-  },
-  {
-    id: 'rec_turkey_zucchini_stew',
-    title: 'Рагу из индейки с молодыми кабачками и морковью',
-    imageUrl: 'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=700&q=80',
-    difficulty: 'Легко',
-    mealType: 'dinner',
-    courseType: 'main',
-    prepTimeMin: 30,
-    calories: 360,
-    proteins: 38,
-    fats: 9,
-    carbs: 22,
-    tags: ['Птица', 'Низкокалорийное', 'Без глютена'],
-    equipment: ['Глубокая сковорода сотейник', 'Доска'],
-    isBatchable: true,
-    batchLabel: 'Рагу на 2 дня',
-    chainRole: 'initiator',
-    linkedIngredient: 'ing_turkey_breast',
-    baseIngredients: [
-      { id: 'ing_turkey_breast', name: 'Филе индейки кубиком', gramsPerPerson: 160, category: 'Мясо и птица' },
-      { id: 'ing_zucchini', name: 'Кабачки молодые', gramsPerPerson: 140, category: 'Овощи и зелень' },
-      { id: 'ing_carrots', name: 'Морковь соломкой', gramsPerPerson: 60, category: 'Овощи и зелень' },
-      { id: 'ing_dill', name: 'Свежая зелень', gramsPerPerson: 10, category: 'Овощи и зелень' }
-    ],
-    detailedSteps: [
-      {
-        stepNumber: 1,
-        title: 'Обжарка кусочков индейки',
-        instruction: 'Филе нарежьте кубиками 2 см. Обжарьте в сотейнике с 1 ч. л. масла на среднем огне 5 минут до матовой корочки.',
-        durationSec: 300,
-        heat: 'Средний огонь (6 из 9)',
-        visualMarker: 'Мясо побелело со всех сторон.',
-        chefTip: 'Быстрая обжарка запечатывает сок внутри.'
-      },
-      {
-        stepNumber: 2,
-        title: 'Томление с кабачками',
-        instruction: 'Добавьте нарезанные полукружиями кабачки и морковь, влейте 50 мл воды, посолите. Накройте крышкой и тушите 15 минут.',
+        title: 'Варка чечевицы с овощами',
+        instruction: 'Картофель и морковь нарежьте ломтиками. Залейте вместе с чечевицей 800 мл воды, варите 15 минут до мягкости.',
         durationSec: 900,
-        heat: 'Слабый огонь (3 из 9)',
-        visualMarker: 'Кабачки стали нежными и пропитались соком индейки.',
-        chefTip: 'Кабачки отдадут собственный сок — не лейте много воды.'
+        heat: 'Средний огонь (5 из 9)',
+        visualMarker: 'Чечевица полностью разварилась.',
+        chefTip: 'Красная чечевица варится быстрее всех бобовых.'
       }
-    ],
-    chefTip: 'Легкое диетическое блюдо с высоким содержанием белка.'
+    ]
   },
 
-  // --- РЫБА ---
+  // ===================== ВТОРЫЕ БЛЮДА (ОБЕД 2-е) =====================
   {
-    id: 'rec_baked_cod',
-    title: 'Филе мурманской трески с картофелем и укропом',
-    imageUrl: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=700&q=80',
+    id: 'rec_cutlets_mashed_potatoes',
+    title: 'Домашние мясные котлеты с картофелем',
+    imageUrl: 'https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=700&q=80',
     difficulty: 'Легко',
-    mealType: 'dinner',
+    mealType: 'lunch',
     courseType: 'main',
     prepTimeMin: 30,
-    calories: 340,
+    calories: 460,
     proteins: 36,
-    fats: 6,
-    carbs: 32,
-    tags: ['Рыба', 'Без мяса', 'Легкое'],
-    equipment: ['Форма для запекания', 'Доска'],
+    fats: 16,
+    carbs: 42,
+    tags: ['Обед', 'Говядина', 'Русская кухня', 'Без лактозы'],
+    equipment: ['Сковорода с крышкой', 'Кастрюля'],
     isBatchable: true,
-    batchLabel: 'Рыбный день',
+    batchLabel: 'Котлеты на 2 дня',
     chainRole: 'initiator',
-    linkedIngredient: 'ing_cod_fillet',
+    linkedIngredient: 'ing_beef_mince',
     baseIngredients: [
-      { id: 'ing_cod_fillet', name: 'Филе трески охлажденное', gramsPerPerson: 180, category: 'Рыба и морепродукты' },
-      { id: 'ing_potatoes', name: 'Картофель отварной/печеный', gramsPerPerson: 160, category: 'Овощи и зелень' },
-      { id: 'ing_dill', name: 'Свежий укроп', gramsPerPerson: 15, category: 'Овощи и зелень' },
-      { id: 'ing_oil', name: 'Оливковое масло', gramsPerPerson: 10, category: 'Бакалея', isPantry: true }
+      { id: 'ing_beef_mince', name: 'Фарш говяжий охлажденный', gramsPerPerson: 160, category: 'Мясо и птица' },
+      { id: 'ing_potatoes', name: 'Картофель отборный', gramsPerPerson: 180, category: 'Овощи и зелень' },
+      { id: 'ing_dill', name: 'Свежий укроп', gramsPerPerson: 10, category: 'Овощи и зелень' }
     ],
     detailedSteps: [
       {
         stepNumber: 1,
-        title: 'Подготовка рыбного филе',
-        instruction: 'Филе трески промокните салфеткой, разрежьте на порции. Сбрызните каплей масла, посолите.',
-        durationSec: 180,
-        visualMarker: 'Сухое чистое филе с легким блеском.',
-        chefTip: 'Треска не любит избытка влаги перед запеканием.'
+        title: 'Формовка и обжарка котлет',
+        instruction: 'Фарш посолите, поперчите, отбейте об ладони и сформируйте котлеты. Обжарьте на сковороде по 4 минуты с каждой стороны.',
+        durationSec: 480,
+        heat: 'Средний огонь (6 из 9)',
+        visualMarker: 'Плотная румяная корочка с обеих сторон.',
+        chefTip: 'Отбивание фарша делает котлеты сочными без добавления хлеба.'
       },
       {
         stepNumber: 2,
-        title: 'Запекание до нежности',
-        instruction: 'Выложите в форму с тонкими ломтиками картофеля. Запекайте 18-20 минут при 180°C.',
-        durationSec: 1200,
-        heat: 'Духовка 180°C',
-        visualMarker: 'Мякоть рыбы легко расслаивается вилкой на сочные белые лепестки.',
-        chefTip: 'Не передерживайте рыбу в духовке.'
+        title: 'Варка картофеля',
+        instruction: 'Картофель отварите в подсоленной воде 18 минут. Подавайте с сочными горячими котлетами и укропом.',
+        durationSec: 1080,
+        heat: 'Средний огонь (5 из 9)',
+        visualMarker: 'Картофель рассыпчатый и мягкий.',
+        chefTip: 'Классическое сытное русское второе блюдо.'
       }
+    ]
+  },
+  {
+    id: 'rec_buckwheat_merchant_chicken',
+    title: 'Гречка по-купечески с кусочками филе цыпленка',
+    imageUrl: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=700&q=80',
+    difficulty: 'Очень легко',
+    mealType: 'lunch',
+    courseType: 'main',
+    prepTimeMin: 25,
+    calories: 410,
+    proteins: 38,
+    fats: 9,
+    carbs: 45,
+    tags: ['Обед', 'Птица', 'Русская кухня', 'Без лактозы', 'Без глютена'],
+    equipment: ['Глубокая сковорода или сотейник'],
+    isBatchable: true,
+    batchLabel: 'Блюдо на 2 дня',
+    chainRole: 'initiator',
+    linkedIngredient: 'ing_chicken_breast',
+    baseIngredients: [
+      { id: 'ing_chicken_breast', name: 'Филе цыпленка кубиком', gramsPerPerson: 160, category: 'Мясо и птица' },
+      { id: 'ing_buckwheat', name: 'Гречневая крупа ядрица', gramsPerPerson: 75, category: 'Бакалея' },
+      { id: 'ing_carrots', name: 'Морковь соломкой', gramsPerPerson: 50, category: 'Овощи и зелень' }
     ],
-    chefTip: 'Диетическая белая рыба богата фосфором и йодом.'
+    detailedSteps: [
+      {
+        stepNumber: 1,
+        title: 'Обжаривание курицы и моркови',
+        instruction: 'Кусочки цыпленка обжарьте с морковью 4 минуты на сильном огне до побеления мяса.',
+        durationSec: 240,
+        heat: 'Сильный огонь (7 из 9)',
+        visualMarker: 'Мясо подрумянилось со всех сторон.',
+        chefTip: 'Быстрая обжарка запечатывает сок.'
+      },
+      {
+        stepNumber: 2,
+        title: 'Томление гречки в соке',
+        instruction: 'Всыпьте промытую гречку, залейте 160 мл горячей воды, посолите. Накройте крышкой и томите 16 минут на тихом огне.',
+        durationSec: 960,
+        heat: 'Тихий огонь (2 из 9)',
+        visualMarker: 'Вода полностью впиталась, гречка стала рассыпчатой и ароматной.',
+        chefTip: 'Гречка пропитывается мясным соком без добавления жира.'
+      }
+    ]
+  },
+  {
+    id: 'rec_wok_rice',
+    title: 'Жареный рис «Wok Style» со сквозным гарниром и яйцом',
+    imageUrl: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=700&q=80',
+    difficulty: 'Легко',
+    mealType: 'lunch',
+    courseType: 'main',
+    prepTimeMin: 15,
+    calories: 420,
+    proteins: 16,
+    fats: 11,
+    carbs: 64,
+    tags: ['Обед', 'Сквозной гарнир', 'Быстро', 'Без лактозы'],
+    equipment: ['Сковорода или вок', 'Лопатка'],
+    isBatchable: false,
+    batchLabel: 'Сквозной рис',
+    chainRole: 'consumer',
+    linkedIngredient: 'ing_rice',
+    baseIngredients: [
+      { id: 'ing_rice', name: 'Отварной рис (вчерашняя заготовка)', gramsPerPerson: 150, category: 'Бакалея', isSharedSide: true },
+      { id: 'ing_eggs', name: 'Яйца куриные С1', gramsPerPerson: 50, category: 'Яйца' },
+      { id: 'ing_carrots', name: 'Морковь соломкой', gramsPerPerson: 40, category: 'Овощи и зелень' },
+      { id: 'ing_soya', name: 'Соевый соус', gramsPerPerson: 15, category: 'Бакалея', isPantry: true }
+    ],
+    detailedSteps: [
+      {
+        stepNumber: 1,
+        title: 'Обжарка яйца и риса',
+        instruction: 'На раскаленной сковороде быстро обжарьте яйцо, всыпьте вчерашний рис и морковь. Жарьте 3 минуты, влейте ложку соевого соуса.',
+        durationSec: 240,
+        heat: 'Сильный огонь (7 из 9)',
+        visualMarker: 'Аппетитное потрескивание зерен и ровный карамельный цвет.',
+        chefTip: 'Сквозной рис из холодильника сэкономил 25 минут варки!'
+      }
+    ]
   },
   {
     id: 'rec_tuna_pasta',
@@ -470,8 +777,8 @@ const MASTER_RECIPES = [
     proteins: 34,
     fats: 8,
     carbs: 48,
-    tags: ['Рыба', 'Паста', 'Быстро'],
-    equipment: ['Кастрюля 2.5 л', 'Сковорода сотейник'],
+    tags: ['Рыба', 'Паста', 'Быстро', 'Без лактозы'],
+    equipment: ['Кастрюля 2.5 л', 'Сковорода'],
     isBatchable: false,
     batchLabel: 'Быстрый обед',
     chainRole: 'independent',
@@ -484,568 +791,167 @@ const MASTER_RECIPES = [
     detailedSteps: [
       {
         stepNumber: 1,
-        title: 'Варка пасты',
-        instruction: 'Отварите пенне в подсоленной воде 9 минут аль-денте. Слейте воду, оставив пару ложек.',
+        title: 'Варка пасты и сборка соуса',
+        instruction: 'Сварите пенне 9 минут аль-денте. На сковороде прогрейте томаты кубиком 2 минуты, добавьте тунца и перемешайте с пастой.',
         durationSec: 540,
-        heat: 'Сильный огонь (8 из 9)',
-        visualMarker: 'Паста упругая в центре.',
-        chefTip: 'Вода от пасты создаст шелковистый соус.'
-      },
-      {
-        stepNumber: 2,
-        title: 'Быстрый соус из тунца и томатов',
-        instruction: 'На сковороде прогрейте нарезанные кубиком томаты 2 минуты. Добавьте размятого вилкой тунца и соедините с пастой.',
-        durationSec: 180,
         heat: 'Средний огонь (5 из 9)',
-        visualMarker: 'Соус равномерно покрывает трубочки пасты.',
-        chefTip: 'Итальянская классика за 15 минут.'
+        visualMarker: 'Соус равномерно обволакивает пасту.',
+        chefTip: 'Чистый тунцовый белок без лишнего жира.'
       }
-    ],
-    chefTip: 'Чистый белок тунца и сложные углеводы для сытости.'
+    ]
   },
 
-  // --- ГОВЯДИНА ---
+  // ===================== УЖИНЫ =====================
   {
-    id: 'rec_beef_pasta',
-    title: 'Паста пенне с говяжьим фаршем и томатами',
-    imageUrl: 'https://images.unsplash.com/photo-1608897013039-887f21d8c804?auto=format&fit=crop&w=700&q=80',
+    id: 'rec_turkey_dinner',
+    title: 'Запеченное филе индейки с травами и рисом',
+    imageUrl: 'https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=700&q=80',
     difficulty: 'Легко',
-    mealType: 'lunch',
-    courseType: 'main',
-    prepTimeMin: 22,
-    calories: 460,
-    proteins: 36,
-    fats: 15,
-    carbs: 45,
-    tags: ['Паста', 'Говядина', 'Без лука'],
-    equipment: ['Кастрюля 2.5 л', 'Сотейник'],
-    isBatchable: true,
-    batchLabel: 'Сытный обед',
-    chainRole: 'initiator',
-    linkedIngredient: 'ing_beef_mince',
-    baseIngredients: [
-      { id: 'ing_beef_mince', name: 'Фарш из говядины охлажденный', gramsPerPerson: 140, category: 'Мясо и птица' },
-      { id: 'ing_pasta_penne', name: 'Паста пенне твердых сортов', gramsPerPerson: 75, category: 'Бакалея' },
-      { id: 'ing_tomatoes', name: 'Томаты свежие спелые', gramsPerPerson: 80, category: 'Овощи и зелень' }
-    ],
-    detailedSteps: [
-      {
-        stepNumber: 1,
-        title: 'Варка пасты аль денте',
-        instruction: 'Вскипятите воду, сварите пенне ровно 9 минут. Сохраните полстакана воды от варки.',
-        durationSec: 540,
-        heat: 'Сильный огонь (8 из 9)',
-        visualMarker: 'Паста упругая при надкусывании.',
-        chefTip: 'Крахмальная вода объединит соус.'
-      },
-      {
-        stepNumber: 2,
-        title: 'Обжаривание фарша с томатами',
-        instruction: 'Обжарьте фарш в сотейнике 5 минут, разбивая комочки. Добавьте томаты и тушите 4 минуты. Смешайте с пенне.',
-        durationSec: 540,
-        heat: 'Средне-сильный огонь (6 из 9)',
-        visualMarker: 'Густой глянцевый соус обволакивает пасту.',
-        chefTip: 'Разбивайте фарш ребром лопатки.'
-      }
-    ],
-    chefTip: 'Сытное итальянское блюдо без лука и чеснока.'
-  },
-  {
-    id: 'rec_beef_soup',
-    title: 'Наваристый суп с говядиной и картофелем',
-    imageUrl: 'https://images.unsplash.com/photo-1541832676-9b763b0239ab?auto=format&fit=crop&w=700&q=80',
-    difficulty: 'Средняя',
-    mealType: 'lunch',
-    courseType: 'soup',
-    prepTimeMin: 40,
-    calories: 360,
-    proteins: 31,
-    fats: 11,
-    carbs: 34,
-    tags: ['Суп', 'Сытное', 'Без лука'],
-    equipment: ['Кастрюля 3 л', 'Шумовка', 'Нож'],
-    isBatchable: true,
-    batchLabel: 'Суп на 2 дня',
-    chainRole: 'consumer',
-    linkedIngredient: 'ing_beef_stew',
-    baseIngredients: [
-      { id: 'ing_beef_stew', name: 'Говядина отборная', gramsPerPerson: 120, category: 'Мясо и птица' },
-      { id: 'ing_potatoes', name: 'Картофель кубиком', gramsPerPerson: 90, category: 'Овощи и зелень' },
-      { id: 'ing_carrots', name: 'Морковь', gramsPerPerson: 50, category: 'Овощи и зелень' },
-      { id: 'ing_dill', name: 'Укроп', gramsPerPerson: 10, category: 'Овощи и зелень' }
-    ],
-    detailedSteps: [
-      {
-        stepNumber: 1,
-        title: 'Варка мясного бульона',
-        instruction: 'Говядину нарежьте кусочками 2х2 см. Залейте холодной водой (1.5 л), доведите до кипения, снимите пену и варите 25 минут на тихом огне.',
-        durationSec: 1500,
-        heat: 'Тихий огонь (3 из 9)',
-        visualMarker: 'Мясо мягкое при прокалывании вилкой.',
-        chefTip: 'Холодная вода отдает вкус мяса в бульон.'
-      },
-      {
-        stepNumber: 2,
-        title: 'Добавление картофеля и моркови',
-        instruction: 'Картофель нарежьте кубиком, морковь — кружочками. Опустите в бульон и варите 15 минут.',
-        durationSec: 900,
-        heat: 'Средний огонь (4 из 9)',
-        visualMarker: 'Картофель легко разминается ложкой.',
-        chefTip: 'Бульон насыщенный без пережаривания в масле.'
-      }
-    ],
-    chefTip: 'Ароматный бульон без лука и резких специй.'
-  },
-  {
-    id: 'rec_beef_stroganoff',
-    title: 'Томленая говядина по-строгановски с пюре',
-    imageUrl: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=700&q=80',
-    difficulty: 'Средняя',
     mealType: 'dinner',
     courseType: 'main',
-    prepTimeMin: 45,
-    calories: 490,
-    proteins: 38,
-    fats: 22,
-    carbs: 34,
-    tags: ['Мясо', 'Сытное'],
-    equipment: ['Сотейник', 'Кастрюля', 'Толкушка'],
+    prepTimeMin: 35,
+    calories: 410,
+    proteins: 46,
+    fats: 12,
+    carbs: 28,
+    tags: ['Птица', 'Высокий белок', 'Без лактозы'],
+    equipment: ['Форма для запекания', 'Кастрюля 2 л', 'Доска'],
     isBatchable: true,
     batchLabel: 'Готовка на 2 дня',
     chainRole: 'initiator',
-    linkedIngredient: 'ing_beef_stew',
+    linkedIngredient: 'ing_turkey_breast',
     baseIngredients: [
-      { id: 'ing_beef_stew', name: 'Говядина духовая лоток', gramsPerPerson: 180, category: 'Мясо и птица' },
-      { id: 'ing_mushrooms', name: 'Шампиньоны свежие', gramsPerPerson: 70, category: 'Овощи и зелень' },
-      { id: 'ing_sour_cream', name: 'Сметана 15%', gramsPerPerson: 40, category: 'Молочные продукты' },
+      { id: 'ing_turkey_breast', name: 'Филе грудки индейки', gramsPerPerson: 180, category: 'Мясо и птица' },
+      { id: 'ing_rice', name: 'Рис жасмин (отварной)', gramsPerPerson: 80, category: 'Бакалея', isSharedSide: true },
+      { id: 'ing_broccoli', name: 'Брокколи свежая', gramsPerPerson: 120, category: 'Овощи и зелень' }
+    ],
+    detailedSteps: [
+      {
+        stepNumber: 1,
+        title: 'Варка риса с запасом на завтра',
+        instruction: 'Сварите двойную порцию риса под крышкой 12 минут. Половину отложите в контейнер на завтрашний обед!',
+        durationSec: 720,
+        heat: 'Слабый огонь (2 из 9)',
+        visualMarker: 'Вода впиталась, рис рассыпчатый.',
+        chefTip: 'Сквозной рис сэкономит полчаса завтра.'
+      },
+      {
+        stepNumber: 2,
+        title: 'Запекание индейки и брокколи',
+        instruction: 'Филе натрите солью и специями, запекайте с брокколи при 190°C 22 минуты.',
+        durationSec: 1320,
+        heat: 'Духовка 190°C',
+        visualMarker: 'Сок прозрачный, мясо нежное и сочное.',
+        chefTip: 'Дайте мясу отдохнуть 4 минуты перед нарезкой.'
+      }
+    ]
+  },
+  {
+    id: 'rec_chicken_fillet',
+    title: 'Запеченное филе цыпленка с картофелем по-деревенски',
+    imageUrl: 'https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=700&q=80',
+    difficulty: 'Легко',
+    mealType: 'dinner',
+    courseType: 'main',
+    prepTimeMin: 35,
+    calories: 430,
+    proteins: 44,
+    fats: 13,
+    carbs: 34,
+    tags: ['Птица', 'Без лактозы', 'Без глютена'],
+    equipment: ['Противень', 'Пергамент'],
+    isBatchable: true,
+    batchLabel: 'Готовка на 2 дня',
+    chainRole: 'initiator',
+    linkedIngredient: 'ing_chicken_breast',
+    baseIngredients: [
+      { id: 'ing_chicken_breast', name: 'Филе цыпленка охлажденное', gramsPerPerson: 190, category: 'Мясо и птица' },
       { id: 'ing_potatoes', name: 'Картофель отборный', gramsPerPerson: 180, category: 'Овощи и зелень' }
     ],
     detailedSteps: [
       {
         stepNumber: 1,
-        title: 'Нарезка брусочками поперек волокон',
-        instruction: 'Нарежьте мясо на пластины 1 см, затем на брусочки 4 см поперек мышечных волокон.',
-        durationSec: 300,
-        visualMarker: 'Тонкие мясные полоски одинакового размера.',
-        chefTip: 'Нарезка поперек волокон гарантирует мягкость.'
-      },
-      {
-        stepNumber: 2,
-        title: 'Быстрая обжарка и томление',
-        instruction: 'Обжарьте мясо 3 минуты на сильном огне. Добавьте грибы, сметану и 70 мл воды. Тушите под крышкой 25 минут на тихом огне.',
+        title: 'Запекание цыпленка и картофеля',
+        instruction: 'Картофель нарежьте дольками, мясо — стейками. Посыпьте солью и паприкой. Запекайте 25 минут при 200°C.',
         durationSec: 1500,
-        heat: 'Тихий огонь (2 из 9)',
-        visualMarker: 'Нежное мясо в густом сливочном соусе.',
-        chefTip: 'Сметана сделает говядину мягкой.'
+        heat: 'Духовка 200°C',
+        visualMarker: 'Румяные дольки картофеля и сочное мясо.',
+        chefTip: 'Вторая часть филе пойдет на легкий суп.'
       }
-    ],
-    chefTip: 'На второй день томленая говядина становится еще насыщеннее!'
-  },
-
-  // --- ВЕГЕТАРИАНСКИЕ И ПОСТНЫЕ СУПЫ И ГАРНИРЫ ---
-  {
-    id: 'rec_lentil_soup',
-    title: 'Нежный крем-суп из красной чечевицы',
-    imageUrl: 'https://images.unsplash.com/photo-1546549032-9571cd6b27df?auto=format&fit=crop&w=700&q=80',
-    difficulty: 'Очень легко',
-    mealType: 'lunch',
-    courseType: 'soup',
-    prepTimeMin: 20,
-    calories: 290,
-    proteins: 19,
-    fats: 5,
-    carbs: 42,
-    tags: ['Суп', 'Постное', 'Без мяса', 'Без лука'],
-    equipment: ['Кастрюля 2 л', 'Блендер'],
-    isBatchable: true,
-    batchLabel: 'Быстрый суп',
-    chainRole: 'independent',
-    baseIngredients: [
-      { id: 'ing_lentils', name: 'Чечевица красная', gramsPerPerson: 70, category: 'Бакалея' },
-      { id: 'ing_carrots', name: 'Морковь мытая', gramsPerPerson: 60, category: 'Овощи и зелень' },
-      { id: 'ing_potatoes', name: 'Картофель', gramsPerPerson: 70, category: 'Овощи и зелень' }
-    ],
-    detailedSteps: [
-      {
-        stepNumber: 1,
-        title: 'Варка чечевицы и овощей',
-        instruction: 'Картофель и морковь нарежьте ломтиками. Залейте вместе с чечевицей 800 мл воды, варите 15 минут.',
-        durationSec: 900,
-        heat: 'Средний огонь (5 из 9)',
-        visualMarker: 'Чечевица распалась на нежные хлопья.',
-        chefTip: 'Красная чечевица разваривается быстрее всех бобовых.'
-      },
-      {
-        stepNumber: 2,
-        title: 'Пюрирование блендером',
-        instruction: 'Пробейте суп погружным блендером 1 минуту до шелковистого бархатистого крема.',
-        durationSec: 120,
-        heat: 'Выключено',
-        visualMarker: 'Гладкая однородная текстура теплого персикового оттенка.',
-        chefTip: 'Солите в конце для мягкости чечевицы.'
-      }
-    ],
-    chefTip: 'Богат растительным белком и железом.'
+    ]
   },
   {
-    id: 'rec_pumpkin_soup',
-    title: 'Бархатный суп из печеной тыквы с морковью',
-    imageUrl: 'https://images.unsplash.com/photo-1476718406336-bb5a9690ee2a?auto=format&fit=crop&w=700&q=80',
-    difficulty: 'Очень легко',
-    mealType: 'lunch',
-    courseType: 'soup',
-    prepTimeMin: 25,
-    calories: 250,
-    proteins: 6,
+    id: 'rec_baked_cod',
+    title: 'Филе мурманской трески с картофелем и укропом',
+    imageUrl: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=700&q=80',
+    difficulty: 'Легко',
+    mealType: 'dinner',
+    courseType: 'main',
+    prepTimeMin: 28,
+    calories: 340,
+    proteins: 36,
     fats: 6,
-    carbs: 38,
-    tags: ['Суп', 'Постное', 'Без мяса', 'Без глютена'],
-    equipment: ['Кастрюля 2 л', 'Блендер'],
-    isBatchable: true,
-    batchLabel: 'Овощной суп',
-    chainRole: 'independent',
-    baseIngredients: [
-      { id: 'ing_pumpkin', name: 'Тыква свежая кубиком', gramsPerPerson: 160, category: 'Овощи и зелень' },
-      { id: 'ing_carrots', name: 'Морковь фермерская', gramsPerPerson: 70, category: 'Овощи и зелень' },
-      { id: 'ing_potatoes', name: 'Картофель', gramsPerPerson: 80, category: 'Овощи и зелень' }
-    ],
-    detailedSteps: [
-      {
-        stepNumber: 1,
-        title: 'Варка тыквы и корнеплодов',
-        instruction: 'Тыкву, морковь и картофель нарежьте кусочками 2 см. Залейте 600 мл воды, варите 16 минут до мягкости.',
-        durationSec: 960,
-        heat: 'Средний огонь (5 из 9)',
-        visualMarker: 'Тыква легко протыкается зубочисткой.',
-        chefTip: 'Тыква дает приятную естественную сладость.'
-      },
-      {
-        stepNumber: 2,
-        title: 'Кремовое пюрирование',
-        instruction: 'Пробейте суп блендером до гладкости, добавьте щепотку соли и перца.',
-        durationSec: 120,
-        heat: 'Выключено',
-        visualMarker: 'Яркий солнечный оранжевый крем.',
-        chefTip: 'По желанию украсьте семечками из запасов.'
-      }
-    ],
-    chefTip: 'Богат бета-каротином и клетчаткой.'
-  },
-  {
-    id: 'rec_white_bean_soup',
-    title: 'Сытный суп с белой фасолью и томатами',
-    imageUrl: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=700&q=80',
-    difficulty: 'Очень легко',
-    mealType: 'lunch',
-    courseType: 'soup',
-    prepTimeMin: 20,
-    calories: 310,
-    proteins: 16,
-    fats: 5,
-    carbs: 48,
-    tags: ['Суп', 'Без мяса', 'Постное'],
-    equipment: ['Кастрюля 2 л', 'Лопатка'],
-    isBatchable: true,
-    batchLabel: 'Фасолевый обед',
-    chainRole: 'independent',
-    baseIngredients: [
-      { id: 'ing_beans_white', name: 'Фасоль белая в с/с (банка)', gramsPerPerson: 130, category: 'Бакалея' },
-      { id: 'ing_potatoes', name: 'Картофель кубиком', gramsPerPerson: 90, category: 'Овощи и зелень' },
-      { id: 'ing_tomatoes', name: 'Томаты свежие', gramsPerPerson: 70, category: 'Овощи и зелень' },
-      { id: 'ing_dill', name: 'Свежая зелень', gramsPerPerson: 10, category: 'Овощи и зелень' }
-    ],
-    detailedSteps: [
-      {
-        stepNumber: 1,
-        title: 'Варка картофеля',
-        instruction: 'Картофель опустите в 900 мл кипящей воды, варите 10 минут.',
-        durationSec: 600,
-        heat: 'Средний огонь (5 из 9)',
-        visualMarker: 'Картофель почти готов.',
-        chefTip: 'Консервированная фасоль уже готова, добавляем в конце.'
-      },
-      {
-        stepNumber: 2,
-        title: 'Ввод фасоли и томатов',
-        instruction: 'Добавьте фасоль вместе с соком и нарезанные томаты. Варите 5 минут, посыпьте зеленью.',
-        durationSec: 300,
-        heat: 'Слабый огонь (3 из 9)',
-        visualMarker: 'Густой насыщенный томатно-фасолевый суп.',
-        chefTip: 'Сытный растительный белок без мяса.'
-      }
-    ],
-    chefTip: 'Идеален в постные или вегетарианские дни.'
-  },
-  {
-    id: 'rec_wok_rice',
-    title: 'Жареный рис «Wok Style» со сквозным гарниром',
-    imageUrl: 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=700&q=80',
-    difficulty: 'Легко',
-    mealType: 'lunch',
-    courseType: 'main',
-    prepTimeMin: 15,
-    calories: 420,
-    proteins: 14,
-    fats: 11,
-    carbs: 64,
-    tags: ['Обед', 'Сквозной гарнир', 'Быстро'],
-    equipment: ['Сковорода или вок', 'Лопатка'],
-    isBatchable: false,
-    batchLabel: 'Сквозной рис',
-    chainRole: 'consumer',
-    linkedIngredient: 'ing_rice',
-    baseIngredients: [
-      { id: 'ing_rice', name: 'Отварной рис (вчерашняя заготовка)', gramsPerPerson: 150, category: 'Бакалея', isSharedSide: true },
-      { id: 'ing_eggs', name: 'Яйца куриные С1', gramsPerPerson: 50, category: 'Молочные продукты' },
-      { id: 'ing_carrots', name: 'Морковь соломкой', gramsPerPerson: 40, category: 'Овощи и зелень' },
-      { id: 'ing_soya', name: 'Соевый соус', gramsPerPerson: 15, category: 'Бакалея', isPantry: true }
-    ],
-    detailedSteps: [
-      {
-        stepNumber: 1,
-        title: 'Разминание вчерашнего риса',
-        instruction: 'Холодный рис разомните вилкой, чтобы зерна отделялись.',
-        durationSec: 60,
-        visualMarker: 'Рассыпчатый рис без комков.',
-        chefTip: 'Холодный рис из холодильника не слипается в воке.'
-      },
-      {
-        stepNumber: 2,
-        title: 'Быстрая обжарка яйца и риса',
-        instruction: 'На раскаленной сковороде обжарьте яйцо 30 секунд, всыпьте морковь и рис. Жарьте 3 минуты, влейте ложку соевого соуса.',
-        durationSec: 240,
-        heat: 'Сильный огонь (7 из 9)',
-        visualMarker: 'Аппетитное потрескивание зерен и карамельный цвет.',
-        chefTip: 'Лейте соус на бортик горячей сковороды для аромата вока.'
-      }
-    ],
-    chefTip: 'Сквозной рис сэкономил 25 минут варки!'
-  },
-  {
-    id: 'rec_buckwheat_mushrooms',
-    title: 'Гречневая каша с грибами и травами',
-    imageUrl: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=700&q=80',
-    difficulty: 'Очень легко',
-    mealType: 'lunch',
-    courseType: 'main',
-    prepTimeMin: 20,
-    calories: 330,
-    proteins: 12,
-    fats: 8,
-    carbs: 52,
-    tags: ['Обед', 'Гречка', 'Zero-Waste'],
-    equipment: ['Кастрюля', 'Сковорода'],
-    isBatchable: false,
-    batchLabel: 'Остаток грибов',
-    chainRole: 'consumer',
-    linkedIngredient: 'ing_mushrooms',
-    baseIngredients: [
-      { id: 'ing_buckwheat', name: 'Гречневая крупа ядрица', gramsPerPerson: 70, category: 'Бакалея' },
-      { id: 'ing_mushrooms', name: 'Шампиньоны (остаток лотка)', gramsPerPerson: 70, category: 'Овощи и зелень' },
-      { id: 'ing_dill', name: 'Свежая зелень', gramsPerPerson: 15, category: 'Овощи и зелень' }
-    ],
-    detailedSteps: [
-      {
-        stepNumber: 1,
-        title: 'Варка гречки',
-        instruction: 'Гречку залейте водой 1:2 с солью, варите под крышкой 15 минут на тихом огне.',
-        durationSec: 900,
-        heat: 'Тихий огонь (3 из 9)',
-        visualMarker: 'Вода впиталась, зерна раскрылись.',
-        chefTip: 'Не открывайте крышку во время варки.'
-      },
-      {
-        stepNumber: 2,
-        title: 'Обжарка шампиньонов и подача',
-        instruction: 'Грибы нарежьте четвертинками, обжарьте на сухой сковороде 2 минуты, затем с 1 ч. л. масла до румяности. Смешайте с горячей гречкой.',
-        durationSec: 300,
-        heat: 'Средний огонь (6 из 9)',
-        visualMarker: 'Золотистые грибы с ореховым ароматом.',
-        chefTip: 'Остаток лотка грибов полностью утилизирован.'
-      }
-    ],
-    chefTip: 'Идеальная утилизация открытого лотка шампиньонов.'
-  },
-
-  // --- ЗАВТРАКИ ---
-  {
-    id: 'rec_curd_pancakes',
-    title: 'Пышные сырники из фермерского творога',
-    imageUrl: 'https://images.unsplash.com/photo-1579954115545-a95591f28bfc?auto=format&fit=crop&w=700&q=80',
-    difficulty: 'Легко',
-    mealType: 'breakfast',
-    courseType: 'breakfast',
-    prepTimeMin: 20,
-    calories: 380,
-    proteins: 31,
-    fats: 14,
     carbs: 32,
-    tags: ['Завтрак', 'Творог'],
-    equipment: ['Сковорода 26 см', 'Лопатка', 'Стакан'],
+    tags: ['Рыба', 'Легкое', 'Без мяса', 'Без лактозы'],
+    equipment: ['Форма для запекания'],
     isBatchable: true,
-    batchLabel: 'Хранение 48ч',
+    batchLabel: 'Рыбный день',
     chainRole: 'initiator',
-    linkedIngredient: 'ing_curd_5',
+    linkedIngredient: 'ing_cod_fillet',
     baseIngredients: [
-      { id: 'ing_curd_5', name: 'Творог 5% в пачке', gramsPerPerson: 180, category: 'Молочные продукты' },
-      { id: 'ing_eggs', name: 'Яйца куриные С1', gramsPerPerson: 50, category: 'Молочные продукты' },
-      { id: 'ing_flour', name: 'Мука пшеничная / рисовая', gramsPerPerson: 35, category: 'Бакалея', isPantry: true },
-      { id: 'ing_sour_cream', name: 'Сметана 15%', gramsPerPerson: 40, category: 'Молочные продукты' }
+      { id: 'ing_cod_fillet', name: 'Филе трески охлажденное', gramsPerPerson: 180, category: 'Рыба и морепродукты' },
+      { id: 'ing_potatoes', name: 'Картофель отборный', gramsPerPerson: 160, category: 'Овощи и зелень' },
+      { id: 'ing_dill', name: 'Свежий укроп', gramsPerPerson: 15, category: 'Овощи и зелень' }
     ],
     detailedSteps: [
       {
         stepNumber: 1,
-        title: 'Замес творожной массы',
-        instruction: 'Творог разомните вилкой, добавьте яйцо, соль, сахар и муку. Сформируйте шарики и подкрутите перевернутым стаканом.',
-        durationSec: 300,
-        visualMarker: 'Плотные ровные ресторанные шайбочки с высокими бортиками.',
-        chefTip: 'Вращение стаканом делает сырники идеальными за 5 секунд.'
-      },
-      {
-        stepNumber: 2,
-        title: 'Обжарка до румяности',
-        instruction: 'Жарьте на умеренном огне по 3.5 минуты с каждой стороны под крышкой.',
-        durationSec: 420,
-        heat: 'Средне-слабый огонь (5 из 9)',
-        visualMarker: 'Золотистая корочка, сырник упруго пружинит.',
-        chefTip: 'Не делайте сильный огонь, чтобы пропеклась середина.'
+        title: 'Запекание рыбы',
+        instruction: 'Выложите треску и тонкие ломтики картофеля в форму, посыпьте укропом. Запекайте 20 минут при 180°C.',
+        durationSec: 1200,
+        heat: 'Духовка 180°C',
+        visualMarker: 'Мякоть рыбы расслаивается вилкой на сочные лепестки.',
+        chefTip: 'Диетическая белая рыба богата фосфором.'
       }
-    ],
-    chefTip: 'Вторая половина пачки пойдет на десертный парфе.'
+    ]
   },
   {
-    id: 'rec_oatmeal',
-    title: 'Овсяная каша на молоке с яблоком и корицей',
-    imageUrl: 'https://images.unsplash.com/photo-1584776296944-ab6fb57b0bdd?auto=format&fit=crop&w=700&q=80',
-    difficulty: 'Очень легко',
-    mealType: 'breakfast',
-    courseType: 'breakfast',
-    prepTimeMin: 12,
-    calories: 310,
-    proteins: 11,
-    fats: 7,
-    carbs: 51,
-    tags: ['Завтрак', 'Злаки'],
-    equipment: ['Сотейник', 'Венчик'],
-    isBatchable: false,
-    batchLabel: 'Базовый завтрак',
-    chainRole: 'independent',
-    baseIngredients: [
-      { id: 'ing_oats', name: 'Овсяные хлопья длительной варки', gramsPerPerson: 60, category: 'Бакалея' },
-      { id: 'ing_milk', name: 'Молоко пастеризованное 2.5%', gramsPerPerson: 200, category: 'Молочные продукты' },
-      { id: 'ing_apples', name: 'Яблоки сезонные', gramsPerPerson: 90, category: 'Овощи и зелень' }
-    ],
-    detailedSteps: [
-      {
-        stepNumber: 1,
-        title: 'Варка хлопьев на молоке',
-        instruction: 'В сотейник налейте молоко и 50 мл воды, добавьте щепотку соли. Всыпьте овсянку, варите 8 минут на слабом огне.',
-        durationSec: 480,
-        heat: 'Слабый огонь (2 из 9)',
-        visualMarker: 'Кремовая текстура каши, лениво опадающей с ложки.',
-        chefTip: 'Щепотка соли раскрывает сливочный вкус молока.'
-      },
-      {
-        stepNumber: 2,
-        title: 'Подача со свежими яблоками',
-        instruction: 'Нарежьте яблоко тонкими слайсами и выложите веером на горячую кашу.',
-        durationSec: 120,
-        visualMarker: 'Хрустящие прохладные дольки на теплой каше.',
-        chefTip: 'Сложные углеводы для энергии на 4 часа.'
-      }
-    ],
-    chefTip: 'Сложные углеводы обеспечивают бодрость до обеда.'
-  },
-  {
-    id: 'rec_omelette',
-    title: 'Пышный омлет с томатами и зеленью',
-    imageUrl: 'https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=700&q=80',
-    difficulty: 'Очень легко',
-    mealType: 'breakfast',
-    courseType: 'breakfast',
-    prepTimeMin: 15,
-    calories: 280,
-    proteins: 20,
-    fats: 16,
-    carbs: 12,
-    tags: ['Завтрак', 'Без глютена', 'Без лактозы'],
-    equipment: ['Сковорода с крышкой', 'Вилка'],
-    isBatchable: false,
-    batchLabel: 'Быстрый белок',
-    chainRole: 'independent',
-    baseIngredients: [
-      { id: 'ing_eggs', name: 'Яйца куриные С1 (2 шт)', gramsPerPerson: 100, category: 'Молочные продукты' },
-      { id: 'ing_tomatoes', name: 'Томаты свежие', gramsPerPerson: 70, category: 'Овощи и зелень' },
-      { id: 'ing_dill', name: 'Укроп свежий', gramsPerPerson: 10, category: 'Овощи и зелень' }
-    ],
-    detailedSteps: [
-      {
-        stepNumber: 1,
-        title: 'Взбивание яиц и прогрев томатов',
-        instruction: 'Взбейте вилкой яйца с солью. Томаты нарежьте кружками и припустите на сковороде 1 минуту.',
-        durationSec: 180,
-        heat: 'Средний огонь (5 из 9)',
-        visualMarker: 'Томаты пустили сок.',
-        chefTip: 'Прогрев убирает лишнюю водянистость.'
-      },
-      {
-        stepNumber: 2,
-        title: 'Томление под крышкой',
-        instruction: 'Залейте яйцами, посыпьте укропом. Накройте крышкой на 5 минут на тихом огне (3 из 9).',
-        durationSec: 300,
-        heat: 'Слабый огонь (3 из 9)',
-        visualMarker: 'Пышный матовый омлет без переворачивания.',
-        chefTip: 'Пар под крышкой пропекает яйца сверху.'
-      }
-    ],
-    chefTip: 'Легкий белковый завтрак без глютена и лактозы.'
-  },
-  {
-    id: 'rec_shakshuka',
-    title: 'Шакшука по-домашнему со спелыми томатами',
-    imageUrl: 'https://images.unsplash.com/photo-1590412200988-a436970781fa?auto=format&fit=crop&w=700&q=80',
+    id: 'rec_stewed_cabbage_beef',
+    title: 'Тушеная капуста с говядиной по-русски',
+    imageUrl: 'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=700&q=80',
     difficulty: 'Легко',
-    mealType: 'breakfast',
-    courseType: 'breakfast',
-    prepTimeMin: 18,
-    calories: 320,
-    proteins: 19,
-    fats: 18,
-    carbs: 16,
-    tags: ['Завтрак', 'Без глютена'],
-    equipment: ['Сковорода с крышкой', 'Лопатка'],
-    isBatchable: false,
-    batchLabel: 'Пряный завтрак',
-    chainRole: 'independent',
+    mealType: 'dinner',
+    courseType: 'main',
+    prepTimeMin: 35,
+    calories: 370,
+    proteins: 35,
+    fats: 14,
+    carbs: 22,
+    tags: ['Ужин', 'Говядина', 'Русская кухня', 'Без лактозы'],
+    equipment: ['Сотейник с крышкой'],
+    isBatchable: true,
+    batchLabel: 'Рагу на 2 дня',
+    chainRole: 'initiator',
+    linkedIngredient: 'ing_beef_stew',
     baseIngredients: [
-      { id: 'ing_eggs', name: 'Яйца куриные С1 (2 шт)', gramsPerPerson: 100, category: 'Молочные продукты' },
-      { id: 'ing_tomatoes', name: 'Томаты свежие спелые', gramsPerPerson: 120, category: 'Овощи и зелень' },
-      { id: 'ing_dill', name: 'Свежая зелень', gramsPerPerson: 15, category: 'Овощи и зелень' }
+      { id: 'ing_beef_stew', name: 'Говядина отборная', gramsPerPerson: 160, category: 'Мясо и птица' },
+      { id: 'ing_cabbage', name: 'Капуста белокочанная', gramsPerPerson: 180, category: 'Овощи и зелень' },
+      { id: 'ing_carrots', name: 'Морковь фермерская', gramsPerPerson: 50, category: 'Овощи и зелень' }
     ],
     detailedSteps: [
       {
         stepNumber: 1,
-        title: 'Приготовление томатного соуса матбуха',
-        instruction: 'Томаты мелко нарежьте, тушите на сковороде с солью и перцем 5 минут до густого соуса.',
-        durationSec: 300,
-        heat: 'Средний огонь (6 из 9)',
-        visualMarker: 'Томаты превратились в густой ароматный соус.',
-        chefTip: 'Спелые томаты дают естественную кислинку.'
-      },
-      {
-        stepNumber: 2,
-        title: 'Запекание яиц в соусе',
-        instruction: 'Сделайте лопаткой два углубления в соусе, разбейте туда яйца. Накройте крышкой на 4 минуты.',
-        durationSec: 240,
-        heat: 'Слабый огонь (3 из 9)',
-        visualMarker: 'Белок схватился, а желток остался жидким.',
-        chefTip: 'Жидкий желток вкусно макать хлебом или лавашом.'
+        title: 'Томление мяса и капусты',
+        instruction: 'Мясо нарежьте брусочками, обжарьте 5 минут. Добавьте нашинкованную капусту, морковь, 60 мл воды и тушите 25 минут под крышкой.',
+        durationSec: 1500,
+        heat: 'Тихий огонь (3 из 9)',
+        visualMarker: 'Капуста стала карамельно-нежной, мясо мягкое.',
+        chefTip: 'Сытный низкоуглеводный традиционный ужин.'
       }
-    ],
-    chefTip: 'Ресторанный средиземноморский завтрак дома.'
+    ]
   },
 
-  // --- ПЕРЕКУСЫ ---
+  // ===================== ПЕРЕКУСЫ =====================
   {
     id: 'rec_curd_parfait',
     title: 'Творожно-ягодный десертный парфе',
@@ -1058,7 +964,7 @@ const MASTER_RECIPES = [
     proteins: 18,
     fats: 4,
     carbs: 26,
-    tags: ['Перекус', 'Легкое', 'Zero-Waste'],
+    tags: ['Перекус', 'Творог', 'Zero-Waste'],
     equipment: ['Блендер', 'Стакан'],
     isBatchable: false,
     batchLabel: 'Остаток творога',
@@ -1066,28 +972,18 @@ const MASTER_RECIPES = [
     linkedIngredient: 'ing_curd_5',
     baseIngredients: [
       { id: 'ing_curd_5', name: 'Творог 5% (остаток пачки)', gramsPerPerson: 90, category: 'Молочные продукты' },
-      { id: 'ing_berries', name: 'Ягоды свежие/мороженые', gramsPerPerson: 60, category: 'Овощи и зелень' },
-      { id: 'ing_sugar', name: 'Сахар / подсластитель', gramsPerPerson: 15, category: 'Бакалея', isPantry: true }
+      { id: 'ing_berries', name: 'Ягоды свежие/мороженые', gramsPerPerson: 60, category: 'Овощи и зелень' }
     ],
     detailedSteps: [
       {
         stepNumber: 1,
-        title: 'Взбивание творожного крема',
-        instruction: 'Взбейте блендером творог с 1 ст. л. теплой воды и сахаром до консистенции суфле.',
-        durationSec: 120,
-        visualMarker: 'Шелковистый сливочный крем без крупинок.',
-        chefTip: 'Быстрый десерт без выпечки.'
-      },
-      {
-        stepNumber: 2,
-        title: 'Сборка в стакане',
-        instruction: 'Выложите слоями крем и ягоды. Украсьте сверху.',
-        durationSec: 120,
-        visualMarker: 'Контрастные рубиновые и белые слои.',
-        chefTip: 'Пачка творога израсходована до последнего грамма!'
+        title: 'Взбивание творожного суфле',
+        instruction: 'Взбейте блендером творог с 1 ст. л. теплой воды до консистенции крема, выложите слоями с ягодами.',
+        durationSec: 180,
+        visualMarker: 'Нежные контрастные белые и рубиновые слои.',
+        chefTip: 'Пачка творога израсходована до последнего грамма.'
       }
-    ],
-    chefTip: 'Ни один грамм открытого творога не пропадет.'
+    ]
   },
   {
     id: 'rec_baked_apple',
@@ -1101,8 +997,8 @@ const MASTER_RECIPES = [
     proteins: 2,
     fats: 1,
     carbs: 32,
-    tags: ['Перекус', 'Постное', 'Без глютена'],
-    equipment: ['Форма для запекания / микроволновка'],
+    tags: ['Перекус', 'Постное', 'Без лактозы', 'Без глютена'],
+    equipment: ['Форма для запекания'],
     isBatchable: false,
     batchLabel: 'Легкий десерт',
     chainRole: 'independent',
@@ -1112,14 +1008,13 @@ const MASTER_RECIPES = [
     detailedSteps: [
       {
         stepNumber: 1,
-        title: 'Удаление сердцевины и запекание',
-        instruction: 'У яблока удалите семенную коробочку. Запекайте в духовке 12 минут при 180°C или 4 минуты в микроволновке.',
+        title: 'Запекание яблока',
+        instruction: 'Удалите семенную коробочку, запекайте 12 минут при 180°C.',
         durationSec: 240,
-        visualMarker: 'Кожица яблока слегка треснула, мякоть мягкая.',
-        chefTip: 'Печеные яблоки полезны для пищеварения.'
+        visualMarker: 'Мякоть мягкая и источает яблочно-медовый аромат.',
+        chefTip: 'Натуральный десерт с пектином.'
       }
-    ],
-    chefTip: 'Натуральный десерт с пектином.'
+    ]
   }
 ];
 
@@ -1142,13 +1037,14 @@ const FACTORY_PACKS = {
   ing_beef_mince: { name: 'Фарш говяжий охлажденный', packWeight: 400, unit: 'г', storageDays: 3, category: 'Мясо и птица', isByWeight: false },
   ing_cod_fillet: { name: 'Филе трески охл./зам.', packWeight: 600, unit: 'г', storageDays: 3, category: 'Рыба и морепродукты', isByWeight: false },
   ing_canned_tuna: { name: 'Тунец в с/с банка', packWeight: 185, unit: 'г', storageDays: 360, category: 'Рыба и морепродукты', isByWeight: false },
-  ing_beans_white: { name: 'Фасоль белая в с/с банка', packWeight: 400, unit: 'г', storageDays: 360, category: 'Бакалея', isByWeight: false },
   ing_curd_5: { name: 'Творог 5% пачка', packWeight: 360, unit: 'г', storageDays: 4, category: 'Молочные продукты', isByWeight: false },
-  ing_eggs: { name: 'Яйца куриные С1 десяток', packWeight: 10, unit: 'шт', storageDays: 25, category: 'Молочные продукты', isByWeight: false },
+  // Яйца - строго отдельная категория "Яйца", не молочка!
+  ing_eggs: { name: 'Яйца куриные С1 десяток', packWeight: 10, unit: 'шт', storageDays: 25, category: 'Яйца', isByWeight: false },
   ing_milk: { name: 'Молоко 2.5% бутылка', packWeight: 930, unit: 'мл', storageDays: 6, category: 'Молочные продукты', isByWeight: false },
   ing_sour_cream: { name: 'Сметана 15% стакан', packWeight: 300, unit: 'г', storageDays: 10, category: 'Молочные продукты', isByWeight: false },
   ing_rice: { name: 'Рис Жасмин упаковка', packWeight: 800, unit: 'г', storageDays: 360, category: 'Бакалея', isByWeight: false },
   ing_buckwheat: { name: 'Гречневая крупа ядрица', packWeight: 800, unit: 'г', storageDays: 360, category: 'Бакалея', isByWeight: false },
+  ing_millet: { name: 'Пшено шлифованное пачка', packWeight: 800, unit: 'г', storageDays: 360, category: 'Бакалея', isByWeight: false },
   ing_lentils: { name: 'Чечевица красная пачка', packWeight: 450, unit: 'г', storageDays: 360, category: 'Бакалея', isByWeight: false },
   ing_pasta_penne: { name: 'Паста пенне пачка', packWeight: 450, unit: 'г', storageDays: 360, category: 'Бакалея', isByWeight: false },
   ing_noodles: { name: 'Лапша яичная пачка', packWeight: 400, unit: 'г', storageDays: 360, category: 'Бакалея', isByWeight: false },
@@ -1157,12 +1053,12 @@ const FACTORY_PACKS = {
   ing_flour: { name: 'Мука пшеничная в/с', packWeight: 1000, unit: 'г', storageDays: 360, category: 'Бакалея', isByWeight: false },
   ing_sugar: { name: 'Сахар-песок пачка', packWeight: 1000, unit: 'г', storageDays: 360, category: 'Бакалея', isByWeight: false },
   ing_soya: { name: 'Соус соевый классический', packWeight: 250, unit: 'мл', storageDays: 180, category: 'Бакалея', isByWeight: false },
+  ing_cabbage: { name: 'Капуста белокочанная (развес)', packWeight: 1000, unit: 'г', storageDays: 20, category: 'Овощи и зелень', isByWeight: true },
+  ing_beets: { name: 'Свекла свежая (развес)', packWeight: 1000, unit: 'г', storageDays: 25, category: 'Овощи и зелень', isByWeight: true },
   ing_broccoli: { name: 'Брокколи свежая (развес)', packWeight: 1000, unit: 'г', storageDays: 5, category: 'Овощи и зелень', isByWeight: true },
-  ing_mushrooms: { name: 'Шампиньоны лоток', packWeight: 400, unit: 'г', storageDays: 5, category: 'Овощи и зелень', isByWeight: false },
   ing_potatoes: { name: 'Картофель (на развес)', packWeight: 1000, unit: 'г', storageDays: 30, category: 'Овощи и зелень', isByWeight: true },
   ing_carrots: { name: 'Морковь мытая (на развес)', packWeight: 1000, unit: 'г', storageDays: 20, category: 'Овощи и зелень', isByWeight: true },
   ing_tomatoes: { name: 'Томаты свежие (на развес)', packWeight: 1000, unit: 'г', storageDays: 7, category: 'Овощи и зелень', isByWeight: true },
-  ing_zucchini: { name: 'Кабачки молодые (на развес)', packWeight: 1000, unit: 'г', storageDays: 10, category: 'Овощи и зелень', isByWeight: true },
   ing_pumpkin: { name: 'Тыква свежая (на развес)', packWeight: 1000, unit: 'г', storageDays: 30, category: 'Овощи и зелень', isByWeight: true },
   ing_apples: { name: 'Яблоки сезонные (на развес)', packWeight: 1000, unit: 'г', storageDays: 14, category: 'Овощи и зелень', isByWeight: true },
   ing_dill: { name: 'Укроп пучок', packWeight: 70, unit: 'г', storageDays: 6, category: 'Овощи и зелень', isByWeight: false },
@@ -1203,13 +1099,13 @@ const BASE_ITEM_PRICES = {
   ing_beef_mince: 275,
   ing_cod_fillet: 430,
   ing_canned_tuna: 180,
-  ing_beans_white: 95,
   ing_curd_5: 145,
   ing_eggs: 125,
   ing_milk: 88,
   ing_sour_cream: 95,
   ing_rice: 135,
   ing_buckwheat: 98,
+  ing_millet: 85,
   ing_lentils: 115,
   ing_pasta_penne: 95,
   ing_noodles: 110,
@@ -1218,12 +1114,12 @@ const BASE_ITEM_PRICES = {
   ing_flour: 85,
   ing_sugar: 75,
   ing_soya: 115,
+  ing_cabbage: 42,
+  ing_beets: 45,
   ing_broccoli: 290,
-  ing_mushrooms: 140,
   ing_potatoes: 58,
   ing_carrots: 49,
   ing_tomatoes: 230,
-  ing_zucchini: 125,
   ing_pumpkin: 89,
   ing_apples: 125,
   ing_dill: 55,
@@ -1255,29 +1151,45 @@ function isDishAllowed(recipe, exclusionsList) {
     const raw = excl.toLowerCase().replace('без ', '').trim();
     if (!raw) continue;
 
+    // ЛАКТОЗА (молоко, творог, сыр, сметана, сливки). Яйца НЕ содержат лактозу!
+    if (raw.includes('лактоз')) {
+      const lactoseKeywords = ['молок', 'творог', 'сметан', 'сыр', 'сливочн', 'сливк', 'йогурт', 'кефир'];
+      const hasLactose = recipe.baseIngredients.some(i => {
+        const name = i.name.toLowerCase();
+        // Защита яиц от ложного срабатывания
+        if (name.includes('яйц') || i.id === 'ing_eggs' || i.category === 'Яйца') return false;
+        if (i.category === 'Молочные продукты') return true;
+        return lactoseKeywords.some(kw => name.includes(kw));
+      });
+      if (hasLactose || recipe.title.toLowerCase().includes('творог') || recipe.title.toLowerCase().includes('сырник')) {
+        return false;
+      }
+    }
     // Свинина
-    if (raw.includes('свинин')) {
+    else if (raw.includes('свинин')) {
       if (recipe.title.toLowerCase().includes('свинин')) return false;
       if (recipe.baseIngredients.some(i => i.name.toLowerCase().includes('свинин'))) return false;
     }
     // Говядина
     else if (raw.includes('говяд')) {
-      if (recipe.title.toLowerCase().includes('говяд') || recipe.title.toLowerCase().includes('строганов')) return false;
-      if (recipe.baseIngredients.some(i => i.name.toLowerCase().includes('говяд'))) return false;
+      if (recipe.title.toLowerCase().includes('говяд') || recipe.title.toLowerCase().includes('строганов') || recipe.title.toLowerCase().includes('котлет')) {
+        if (recipe.baseIngredients.some(i => i.id.includes('beef') || i.name.toLowerCase().includes('говяд'))) return false;
+      }
+      if (recipe.baseIngredients.some(i => i.name.toLowerCase().includes('говяд') || i.id.includes('beef'))) return false;
     }
     // Индейка
     else if (raw.includes('индейк')) {
       if (recipe.title.toLowerCase().includes('индейк')) return false;
-      if (recipe.baseIngredients.some(i => i.name.toLowerCase().includes('индейк'))) return false;
+      if (recipe.baseIngredients.some(i => i.name.toLowerCase().includes('индейк') || i.id.includes('turkey'))) return false;
     }
-    // Курица
+    // Курица / Цыпленок
     else if (raw.includes('куриц') || raw.includes('цыплен')) {
       if (recipe.title.toLowerCase().includes('куриц') || recipe.title.toLowerCase().includes('цыплен')) return false;
-      if (recipe.baseIngredients.some(i => i.name.toLowerCase().includes('цыплен') || i.name.toLowerCase().includes('куриц'))) return false;
+      if (recipe.baseIngredients.some(i => i.name.toLowerCase().includes('цыплен') || i.name.toLowerCase().includes('куриц') || i.id.includes('chicken'))) return false;
     }
     // Рыба
-    else if (raw.includes('рыб') || raw.includes('треск') || raw.includes('тунец')) {
-      if (recipe.title.toLowerCase().includes('треск') || recipe.title.toLowerCase().includes('тунец') || recipe.title.toLowerCase().includes('рыб')) return false;
+    else if (raw.includes('рыб') || raw.includes('треск') || raw.includes('тунец') || raw.includes('уха')) {
+      if (recipe.title.toLowerCase().includes('треск') || recipe.title.toLowerCase().includes('тунец') || recipe.title.toLowerCase().includes('рыб') || recipe.title.toLowerCase().includes('уха')) return false;
       if (recipe.baseIngredients.some(i => i.category === 'Рыба и морепродукты')) return false;
     }
     // Печень
@@ -1319,11 +1231,7 @@ function isDishAllowed(recipe, exclusionsList) {
     else if (raw.includes('глютен')) {
       if (recipe.baseIngredients.some(i => i.name.toLowerCase().includes('мука') || i.name.toLowerCase().includes('лапша') || i.name.toLowerCase().includes('паста') || i.name.toLowerCase().includes('пенне'))) return false;
     }
-    // Лактоза (все молочные продукты)
-    else if (raw.includes('лактоз') || raw.includes('молок') || raw.includes('творог') || raw.includes('сыр')) {
-      if (recipe.baseIngredients.some(i => i.category === 'Молочные продукты')) return false;
-    }
-    // Пользовательские ограничения общего вида
+    // Пользовательские ограничения
     else {
       if (recipe.title.toLowerCase().includes(raw)) return false;
       if (recipe.baseIngredients.some(i => i.name.toLowerCase().includes(raw))) return false;
@@ -1418,15 +1326,16 @@ export default function App() {
     const allowedRecipes = MASTER_RECIPES.filter(r => isDishAllowed(r, exclusions));
 
     const getRecipesFor = (mType, cType, isFirstDay = false) => {
+      // 1. Строгий поиск по приему пищи, подтипу и цепочке утилизации
       let filtered = allowedRecipes.filter(r => {
         if (r.mealType !== mType) return false;
         if (cType && r.courseType !== cType) return false;
-        // На 1-й день запрещено ставить блюдо-утилизатор со вчерашним гарниром или остатками
         if (isFirstDay && r.chainRole === 'consumer') return false;
         return true;
       });
 
-      if (filtered.length === 0) {
+      // 2. Если для обеда не найден подтип (суп или второе), берем любое разрешенное блюдо обеда
+      if (filtered.length === 0 && cType) {
         filtered = allowedRecipes.filter(r => {
           if (r.mealType !== mType) return false;
           if (isFirstDay && r.chainRole === 'consumer') return false;
@@ -1434,14 +1343,16 @@ export default function App() {
         });
       }
 
+      // 3. Если блюд мало, снимаем ограничение первого дня, но СТРОГО в рамках allowedRecipes!
       if (filtered.length === 0) {
-        filtered = MASTER_RECIPES.filter(r => {
-          if (r.mealType !== mType) return false;
-          if (cType && r.courseType !== cType) return false;
-          if (isFirstDay && r.chainRole === 'consumer') return false;
-          return true;
-        });
+        filtered = allowedRecipes.filter(r => r.mealType === mType);
       }
+
+      // 4. Если категория пуста (экстремальные фильтры), берем любое безопасное блюдо из разрешенных
+      if (filtered.length === 0) {
+        filtered = allowedRecipes;
+      }
+
       return filtered;
     };
 
@@ -1451,7 +1362,6 @@ export default function App() {
     const dList = getRecipesFor('dinner', 'main', false);
     const sList = getRecipesFor('snack', null, false);
 
-    // Персональные списки для Дня 1
     const bListDay1 = getRecipesFor('breakfast', null, true);
     const soupsDay1 = getRecipesFor('lunch', 'soup', true);
     const mainsDay1 = getRecipesFor('lunch', 'main', true);
@@ -1501,7 +1411,6 @@ export default function App() {
     if (shouldSwitchTab) {
       triggerHaptic('success');
       setCurrentTab('menu');
-      // Исправление 3: Принудительный скролл наверх
       setTimeout(() => {
         if (scrollContainerRef.current) {
           scrollContainerRef.current.scrollTop = 0;
