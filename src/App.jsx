@@ -151,7 +151,7 @@ const MASTER_RECIPES = [
     linkedIngredient: 'ing_curd_5',
     baseIngredients: [
       { id: 'ing_curd_5', name: 'Творог 5% в пачке', gramsPerPerson: 180, category: 'Молочные продукты' },
-      { id: 'ing_eggs', name: 'Яйца куриные С1', gramsPerPerson: 50, category: 'Яйца' },
+      { id: 'ing_eggs', name: 'Яйца куриные С1', amountPerPerson: 1, unit: 'шт', category: 'Яйца' },
       { id: 'ing_flour', name: 'Мука пшеничная / рисовая', gramsPerPerson: 35, category: 'Бакалея', isPantry: true },
       { id: 'ing_sour_cream', name: 'Сметана 15%', gramsPerPerson: 40, category: 'Молочные продукты' }
     ],
@@ -268,7 +268,7 @@ const MASTER_RECIPES = [
     batchLabel: 'Без лактозы',
     chainRole: 'independent',
     baseIngredients: [
-      { id: 'ing_eggs', name: 'Яйца куриные С1 (2 шт)', gramsPerPerson: 100, category: 'Яйца' },
+      { id: 'ing_eggs', name: 'Яйца куриные С1', amountPerPerson: 2, unit: 'шт', category: 'Яйца' },
       { id: 'ing_tomatoes', name: 'Томаты свежие спелые', gramsPerPerson: 80, category: 'Овощи и зелень' },
       { id: 'ing_dill', name: 'Свежий укроп', gramsPerPerson: 15, category: 'Овощи и зелень' }
     ],
@@ -311,7 +311,7 @@ const MASTER_RECIPES = [
     chainRole: 'independent',
     baseIngredients: [
       { id: 'ing_potatoes', name: 'Картофель отборный', gramsPerPerson: 220, category: 'Овощи и зелень' },
-      { id: 'ing_eggs', name: 'Яйца куриные С1 (1 шт)', gramsPerPerson: 50, category: 'Яйца' },
+      { id: 'ing_eggs', name: 'Яйца куриные С1', amountPerPerson: 1, unit: 'шт', category: 'Яйца' },
       { id: 'ing_flour', name: 'Мука пшеничная в/с', gramsPerPerson: 20, category: 'Бакалея', isPantry: true }
     ],
     detailedSteps: [
@@ -352,7 +352,7 @@ const MASTER_RECIPES = [
     batchLabel: 'Без лактозы',
     chainRole: 'independent',
     baseIngredients: [
-      { id: 'ing_eggs', name: 'Яйца куриные С1 (2 шт)', gramsPerPerson: 100, category: 'Яйца' },
+      { id: 'ing_eggs', name: 'Яйца куриные С1', amountPerPerson: 2, unit: 'шт', category: 'Яйца' },
       { id: 'ing_tomatoes', name: 'Томаты свежие спелые', gramsPerPerson: 130, category: 'Овощи и зелень' },
       { id: 'ing_dill', name: 'Свежая зелень', gramsPerPerson: 15, category: 'Овощи и зелень' }
     ],
@@ -749,7 +749,7 @@ const MASTER_RECIPES = [
     linkedIngredient: 'ing_rice',
     baseIngredients: [
       { id: 'ing_rice', name: 'Отварной рис (вчерашняя заготовка)', gramsPerPerson: 150, category: 'Бакалея', isSharedSide: true },
-      { id: 'ing_eggs', name: 'Яйца куриные С1', gramsPerPerson: 50, category: 'Яйца' },
+      { id: 'ing_eggs', name: 'Яйца куриные С1', amountPerPerson: 1, unit: 'шт', category: 'Яйца' },
       { id: 'ing_carrots', name: 'Морковь соломкой', gramsPerPerson: 40, category: 'Овощи и зелень' },
       { id: 'ing_soya', name: 'Соевый соус', gramsPerPerson: 15, category: 'Бакалея', isPantry: true }
     ],
@@ -1441,8 +1441,9 @@ export default function App() {
               }
             }
           }
-          const grams = ing.gramsPerPerson * peopleCount;
-          rawDemand[ing.id] = (rawDemand[ing.id] || 0) + grams;
+          // Учитываем штучные ингредиенты (яйца) отдельно от весовых (в граммах)
+          const amount = (ing.amountPerPerson !== undefined ? ing.amountPerPerson : ing.gramsPerPerson) * peopleCount;
+          rawDemand[ing.id] = (rawDemand[ing.id] || 0) + amount;
         });
       });
     });
@@ -1450,7 +1451,7 @@ export default function App() {
     const packedItems = [];
     const cityFactor = CITY_COEFFICIENTS[city]?.factor || 1.0;
 
-    Object.entries(rawDemand).forEach(([ingId, requiredGrams]) => {
+    Object.entries(rawDemand).forEach(([ingId, requiredAmount]) => {
       const packInfo = FACTORY_PACKS[ingId] || {
         name: ingId,
         packWeight: 500,
@@ -1468,14 +1469,14 @@ export default function App() {
       const basePrice = BASE_ITEM_PRICES[ingId] || 120;
 
       if (isWeighted) {
-        totalBought = Math.ceil(requiredGrams / 50) * 50;
-        leftover = Math.max(0, totalBought - Math.round(requiredGrams));
+        totalBought = Math.ceil(requiredAmount / 50) * 50;
+        leftover = Math.max(0, totalBought - Math.round(requiredAmount));
         packCount = 1;
         basePriceTotal = (basePrice * totalBought) / 1000;
       } else {
-        packCount = Math.ceil(requiredGrams / packInfo.packWeight);
+        packCount = Math.ceil(requiredAmount / packInfo.packWeight);
         totalBought = packCount * packInfo.packWeight;
-        leftover = totalBought - requiredGrams;
+        leftover = totalBought - requiredAmount;
         basePriceTotal = basePrice * packCount;
       }
 
@@ -1485,7 +1486,7 @@ export default function App() {
         category: packInfo.category,
         unit: packInfo.unit,
         packWeight: packInfo.packWeight,
-        requiredGrams: Math.round(requiredGrams),
+        requiredGrams: Math.round(requiredAmount),
         packCount,
         totalBought,
         leftover: Math.round(leftover),
@@ -2320,9 +2321,11 @@ function MenuView({
                     Ингредиенты на {peopleCount} чел:
                   </span>
                   <p className="line-clamp-2 text-slate-300">
-                    {recipe.baseIngredients.map(ing => (
-                      `${ing.name} (${ing.gramsPerPerson * peopleCount}г)`
-                    )).join(', ')}
+                    {recipe.baseIngredients.map(ing => {
+                      const qty = (ing.amountPerPerson !== undefined ? ing.amountPerPerson : ing.gramsPerPerson) * peopleCount;
+                      const u = ing.unit || 'г';
+                      return `${ing.name} (${qty} ${u})`;
+                    }).join(', ')}
                   </p>
                 </div>
 
@@ -2571,7 +2574,7 @@ function BasketView({
                           ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
                           : 'bg-slate-800 text-slate-400'
                       }`}>
-                        {item.isWeighted ? 'Точный вес ⚖️' : isZeroWaste ? 'Остаток: 0г ✨' : `Запас: ${item.leftover}${item.unit}`}
+                        {item.isWeighted ? 'Точный вес ⚖️' : isZeroWaste ? `Остаток: 0 ${item.unit} ✨` : `Запас: ${item.leftover} ${item.unit}`}
                       </span>
                     </div>
                   </div>
@@ -2700,14 +2703,18 @@ function CookingModal({ recipe, peopleCount, onClose }) {
             Ингредиенты на стол ({peopleCount} чел.):
           </h3>
           <div className="grid grid-cols-1 gap-1.5 text-xs">
-            {recipe.baseIngredients.map(ing => (
-              <div key={ing.id} className="flex items-center justify-between py-1 border-b border-slate-800/60 last:border-0">
-                <span className="text-slate-200">{ing.name}</span>
-                <span className="font-mono font-bold text-emerald-400">
-                  {ing.gramsPerPerson * peopleCount} г
-                </span>
-              </div>
-            ))}
+            {recipe.baseIngredients.map(ing => {
+              const qty = (ing.amountPerPerson !== undefined ? ing.amountPerPerson : ing.gramsPerPerson) * peopleCount;
+              const u = ing.unit || 'г';
+              return (
+                <div key={ing.id} className="flex items-center justify-between py-1 border-b border-slate-800/60 last:border-0">
+                  <span className="text-slate-200">{ing.name}</span>
+                  <span className="font-mono font-bold text-emerald-400">
+                    {qty} {u}
+                  </span>
+                </div>
+              );
+            })}
           </div>
         </div>
 
