@@ -2,9 +2,42 @@ import React, { useState, useEffect, useMemo, useRef } from 'react';
 
 // Постоянный адрес вашего облачного бэкенда на Render.com
 const BACKEND_API_URL = 'https://meal-planner-api-8khx.onrender.com';
-const FALLBACK_FOOD_IMG = 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=700&q=80';
+const FALLBACK_FOOD_IMG = 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80';
 
-// Безопасный доступ к Telegram WebApp SDK
+// Справочник русских наименований, упаковок и отделов супермаркета
+const INGREDIENT_NAMES_MAP = {
+  ing_curd_5: { name: 'Творог 5% в пачке', category: 'Молочные продукты', unit: 'г', packWeight: 360, price: 145 },
+  ing_eggs: { name: 'Яйца куриные С1 десяток', category: 'Яйца', unit: 'шт', packWeight: 10, price: 125 },
+  ing_milk: { name: 'Молоко 2.5% питьевое', category: 'Молочные продукты', unit: 'мл', packWeight: 930, price: 88 },
+  ing_sour_cream: { name: 'Сметана 15%', category: 'Молочные продукты', unit: 'г', packWeight: 300, price: 95 },
+  ing_butter: { name: 'Сливочное масло 82.5%', category: 'Молочные продукты', unit: 'г', packWeight: 180, price: 190 },
+  ing_chicken_breast: { name: 'Филе цыпленка лоток', category: 'Мясо и птица', unit: 'г', packWeight: 850, price: 380 },
+  ing_turkey_breast: { name: 'Филе индейки лоток', category: 'Мясо и птица', unit: 'г', packWeight: 800, price: 440 },
+  ing_beef_stew: { name: 'Говядина духовая лоток', category: 'Мясо и птица', unit: 'г', packWeight: 700, price: 590 },
+  ing_beef_mince: { name: 'Фарш говяжий охлажденный', category: 'Мясо и птица', unit: 'г', packWeight: 400, price: 275 },
+  ing_cod_fillet: { name: 'Филе мурманской трески', category: 'Рыба и морепродукты', unit: 'г', packWeight: 600, price: 430 },
+  ing_canned_tuna: { name: 'Тунец в с/с банка', category: 'Рыба и морепродукты', unit: 'г', packWeight: 185, price: 180 },
+  ing_buckwheat: { name: 'Гречневая крупа ядрица', category: 'Бакалея', unit: 'г', packWeight: 800, price: 98 },
+  ing_rice: { name: 'Рис шлифованный', category: 'Бакалея', unit: 'г', packWeight: 800, price: 135 },
+  ing_millet: { name: 'Пшено шлифованное', category: 'Бакалея', unit: 'г', packWeight: 800, price: 85 },
+  ing_pearl_barley: { name: 'Перловая крупа', category: 'Бакалея', unit: 'г', packWeight: 800, price: 65 },
+  ing_oats: { name: 'Овсяные хлопья традиционные', category: 'Бакалея', unit: 'г', packWeight: 500, price: 92 },
+  ing_pasta_penne: { name: 'Макароны перья (Penne)', category: 'Бакалея', unit: 'г', packWeight: 450, price: 95 },
+  ing_noodles: { name: 'Лапша яичная домашняя', category: 'Бакалея', unit: 'г', packWeight: 400, price: 110 },
+  ing_lentils: { name: 'Чечевица красная', category: 'Бакалея', unit: 'г', packWeight: 450, price: 115 },
+  ing_flour: { name: 'Мука пшеничная в/с', category: 'Бакалея', unit: 'г', packWeight: 1000, price: 85 },
+  ing_sugar: { name: 'Сахар-песок свекловичный', category: 'Бакалея', unit: 'г', packWeight: 1000, price: 75 },
+  ing_potatoes: { name: 'Картофель мытый отборный', category: 'Овощи и зелень', unit: 'г', packWeight: 1000, price: 58, isWeighted: true },
+  ing_cabbage: { name: 'Капуста белокочанная', category: 'Овощи и зелень', unit: 'г', packWeight: 1000, price: 42, isWeighted: true },
+  ing_beets: { name: 'Свекла свежая столовая', category: 'Овощи и зелень', unit: 'г', packWeight: 1000, price: 45, isWeighted: true },
+  ing_carrots: { name: 'Морковь фермерская мытая', category: 'Овощи и зелень', unit: 'г', packWeight: 1000, price: 49, isWeighted: true },
+  ing_tomatoes: { name: 'Томаты свежие спелые', category: 'Овощи и зелень', unit: 'г', packWeight: 1000, price: 230, isWeighted: true },
+  ing_dill: { name: 'Укроп свежий пучок', category: 'Овощи и зелень', unit: 'г', packWeight: 70, price: 55 },
+  ing_apples: { name: 'Яблоки сезонные садовые', category: 'Овощи и зелень', unit: 'г', packWeight: 1000, price: 125, isWeighted: true },
+  ing_pumpkin: { name: 'Тыква свежая сладкая', category: 'Овощи и зелень', unit: 'г', packWeight: 1000, price: 89, isWeighted: true },
+  ing_berries: { name: 'Ягоды замороженные лесные', category: 'Овощи и зелень', unit: 'г', packWeight: 300, price: 195 }
+};
+
 const getTelegramWebApp = () => {
   if (typeof window !== 'undefined' && window.Telegram && window.Telegram.WebApp) {
     return window.Telegram.WebApp;
@@ -12,7 +45,6 @@ const getTelegramWebApp = () => {
   return null;
 };
 
-// Виброотклик (Haptic Feedback) для смартфонов
 const triggerHaptic = (type = 'light') => {
   const tg = getTelegramWebApp();
   if (tg && tg.HapticFeedback) {
@@ -59,18 +91,6 @@ const Icons = {
       <path d="M5 2v4a3 3 0 0 0 3 3h1v13" />
     </svg>
   ),
-  Refresh: (props) => (
-    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} {...props}>
-      <polyline points="23 4 23 10 17 10" />
-      <polyline points="1 20 1 14 7 14" />
-      <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
-    </svg>
-  ),
-  Check: (props) => (
-    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} {...props}>
-      <polyline points="20 6 9 17 4 12" />
-    </svg>
-  ),
   Play: (props) => (
     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} {...props}>
       <polygon points="5 3 19 12 5 21 5 3" />
@@ -92,6 +112,11 @@ const Icons = {
     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} {...props}>
       <line x1="18" y1="6" x2="6" y2="18" />
       <line x1="6" y1="6" x2="18" y2="18" />
+    </svg>
+  ),
+  Check: (props) => (
+    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} {...props}>
+      <polyline points="20 6 9 17 4 12" />
     </svg>
   ),
   Sparkles: (props) => (
@@ -121,6 +146,12 @@ const Icons = {
       <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343a7.975 7.975 0 010 11.314z" />
     </svg>
   ),
+  Eye: (props) => (
+    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} {...props}>
+      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  ),
   ZoomIn: (props) => (
     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} {...props}>
       <circle cx="11" cy="11" r="8" />
@@ -136,124 +167,6 @@ const Icons = {
     </svg>
   )
 };
-
-// Резервный локальный каталог на случай отсутствия связи или первого прогрева Render
-const LOCAL_MASTER_RECIPES = [
-  {
-    id: 'rec_curd_pancakes',
-    title: 'Пышные сырники из фермерского творога',
-    imageUrl: 'https://images.unsplash.com/photo-1579954115545-a95591f28bfc?auto=format&fit=crop&w=700&q=80',
-    difficulty: 'Легко',
-    mealType: 'breakfast',
-    courseType: 'breakfast',
-    prepTimeMin: 20,
-    calories: 380,
-    proteins: 31,
-    fats: 14,
-    carbs: 32,
-    tags: ['Завтрак', 'Творог', 'С молочкой'],
-    equipment: ['Сковорода 26 см', 'Лопатка', 'Стакан'],
-    isBatchable: true,
-    batchLabel: 'Хранение 48ч',
-    chainRole: 'initiator',
-    linkedIngredient: 'ing_curd_5',
-    baseIngredients: [
-      { id: 'ing_curd_5', name: 'Творог 5% в пачке', amountPerPerson: 180, unit: 'г', category: 'Молочные продукты' },
-      { id: 'ing_eggs', name: 'Яйца куриные С1', amountPerPerson: 1, unit: 'шт', category: 'Яйца' },
-      { id: 'ing_flour', name: 'Мука пшеничная / рисовая', amountPerPerson: 35, unit: 'г', category: 'Бакалея', isPantry: true },
-      { id: 'ing_sour_cream', name: 'Сметана 15%', amountPerPerson: 40, unit: 'г', category: 'Молочные продукты' }
-    ],
-    detailedSteps: [
-      {
-        stepNumber: 1,
-        title: 'Замес творожной основы',
-        instruction: 'Творог разомните вилкой, добавьте яйцо, соль, сахар и муку. Сформируйте шарики и подкрутите перевернутым стаканом.',
-        durationSec: 300,
-        visualMarker: 'Плотные ровные ресторанные шайбочки с высокими бортиками.',
-        chefTip: 'Вращение стаканом делает сырники идеально круглыми.'
-      },
-      {
-        stepNumber: 2,
-        title: 'Обжарка до золотистости',
-        instruction: 'Жарьте на умеренном огне по 3.5 минуты с каждой стороны под крышкой.',
-        durationSec: 420,
-        heat: 'Средне-слабый огонь (5 из 9)',
-        visualMarker: 'Золотистая корочка, сырник упруго пружинит.',
-        chefTip: 'Не делайте сильный огонь, чтобы середина пропеклась.'
-      }
-    ]
-  },
-  {
-    id: 'rec_oatmeal_water_berries',
-    title: 'Монастырская овсяная каша на воде с яблоком',
-    imageUrl: 'https://images.unsplash.com/photo-1584776296944-ab6fb57b0bdd?auto=format&fit=crop&w=700&q=80',
-    difficulty: 'Очень легко',
-    mealType: 'breakfast',
-    courseType: 'breakfast',
-    prepTimeMin: 12,
-    calories: 270,
-    proteins: 8,
-    fats: 4,
-    carbs: 52,
-    tags: ['Завтрак', 'Без лактозы', 'Постное', 'Злаки'],
-    equipment: ['Сотейник', 'Ложка'],
-    isBatchable: false,
-    batchLabel: 'Без лактозы',
-    chainRole: 'independent',
-    baseIngredients: [
-      { id: 'ing_oats', name: 'Овсяные хлопья длительной варки', amountPerPerson: 65, unit: 'г', category: 'Бакалея' },
-      { id: 'ing_apples', name: 'Яблоки сезонные', amountPerPerson: 100, unit: 'г', category: 'Овощи и зелень' }
-    ],
-    detailedSteps: [
-      {
-        stepNumber: 1,
-        title: 'Варка овсянки на воде',
-        instruction: 'В сотейник налейте 220 мл воды со щепоткой соли, доведите до кипения. Всыпьте хлопья, варите 9 минут на тихом огне.',
-        durationSec: 540,
-        heat: 'Тихий огонь (2 из 9)',
-        visualMarker: 'Хлопья стали нежными и бархатистыми.',
-        chefTip: 'Варка на воде раскрывает природный ореховый вкус овса.'
-      }
-    ]
-  },
-  {
-    id: 'rec_borscht_classic',
-    title: 'Классический домашний борщ со свеклой и говядиной',
-    imageUrl: 'https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=700&q=80',
-    difficulty: 'Средняя',
-    mealType: 'lunch',
-    courseType: 'soup',
-    prepTimeMin: 45,
-    calories: 360,
-    proteins: 29,
-    fats: 11,
-    carbs: 34,
-    tags: ['Суп', 'Русская кухня', 'Сытное', 'Говядина'],
-    equipment: ['Кастрюля 3 л', 'Терка', 'Доска'],
-    isBatchable: true,
-    batchLabel: 'Борщ на 2 дня',
-    chainRole: 'initiator',
-    linkedIngredient: 'ing_beef_stew',
-    baseIngredients: [
-      { id: 'ing_beef_stew', name: 'Говядина духовая лоток', amountPerPerson: 130, unit: 'г', category: 'Мясо и птица' },
-      { id: 'ing_beets', name: 'Свекла свежая мытая', amountPerPerson: 90, unit: 'г', category: 'Овощи и зелень' },
-      { id: 'ing_cabbage', name: 'Капуста белокочанная', amountPerPerson: 80, unit: 'г', category: 'Овощи и зелень' },
-      { id: 'ing_potatoes', name: 'Картофель отборный', amountPerPerson: 80, unit: 'г', category: 'Овощи и зелень' },
-      { id: 'ing_dill', name: 'Свежий укроп', amountPerPerson: 10, unit: 'г', category: 'Овощи и зелень' }
-    ],
-    detailedSteps: [
-      {
-        stepNumber: 1,
-        title: 'Варка прозрачного мясного бульона',
-        instruction: 'Говядину нарежьте кусочками 2.5 см, залейте холодной водой, варите 25 минут на тихом огне.',
-        durationSec: 1500,
-        heat: 'Тихий огонь (3 из 9)',
-        visualMarker: 'Чистый прозрачный ароматный бульон.',
-        chefTip: 'Снятие первой пены гарантирует кристальную прозрачность.'
-      }
-    ]
-  }
-];
 
 const RETAIL_NETWORKS = [
   { id: 'budget', name: 'Магнит / Пятёрочка', tier: 'Бюджет', multiplier: 0.88, badge: 'Эконом' },
@@ -279,7 +192,7 @@ const DEFAULT_PANTRY_ITEMS = [
   { id: 'pantry_spices', name: 'Базовые сухие специи и травы', checked: true }
 ];
 
-// Функция адаптации DTO рецепта из бэкенда в формат React
+// Нормализация рецепта: берет фото и шаги напрямую из базы данных
 function normalizeBackendRecipe(dto) {
   if (!dto) return null;
   return {
@@ -347,7 +260,6 @@ export default function App() {
   const [toastMessage, setToastMessage] = useState(null);
   const [checkedBasketItems, setCheckedBasketItems] = useState({});
   
-  // Состояния облачного бэкенда
   const [isLoadingApi, setIsLoadingApi] = useState(false);
   const [apiOnline, setApiOnline] = useState(false);
 
@@ -363,7 +275,6 @@ export default function App() {
       } catch (e) {}
     }
 
-    // Проверяем доступность бэкенда при старте
     fetch(`${BACKEND_API_URL}/api/health`, { method: 'GET' })
       .then(res => res.json())
       .then(data => {
@@ -374,7 +285,6 @@ export default function App() {
       .catch(() => setApiOnline(false));
   }, []);
 
-  // Синхронизация кнопки "Назад" в Telegram
   useEffect(() => {
     const tg = getTelegramWebApp();
     if (!tg || !tg.BackButton) return;
@@ -408,7 +318,6 @@ export default function App() {
     setTimeout(() => setToastMessage(null), 3500);
   };
 
-  // Генерация меню через FastAPI облако на Render
   const generateMenuFromBackend = async (shouldSwitchTab = false) => {
     setIsLoadingApi(true);
     triggerHaptic('medium');
@@ -438,7 +347,6 @@ export default function App() {
 
       const data = await response.json();
 
-      // Нормализуем полученные блюда из базы данных
       const normalizedDays = (data.days || []).map(day => {
         const normalizedMeals = {};
         Object.entries(day.meals || {}).forEach(([mKey, rData]) => {
@@ -462,29 +370,11 @@ export default function App() {
     } catch (err) {
       console.warn('Облачный сервер не ответил, применяем локальную базу:', err);
       setApiOnline(false);
-      // Локальная генерация меню в качестве надежного fallback
-      fallbackLocalGenerate(shouldSwitchTab);
       if (shouldSwitchTab) {
-        showToast('⚡ Сервер Render просыпается, открыто локальное меню');
+        showToast('⚡ Сервер Render просыпается, попробуйте еще раз через несколько секунд');
       }
     } finally {
       setIsLoadingApi(false);
-    }
-  };
-
-  const fallbackLocalGenerate = (shouldSwitchTab) => {
-    const generated = [];
-    for (let day = 1; day <= daysCount; day++) {
-      const dayMeals = {};
-      if (mealTypes.breakfast) dayMeals.breakfast = LOCAL_MASTER_RECIPES[0];
-      if (mealTypes.lunch) dayMeals.lunch_soup = LOCAL_MASTER_RECIPES[2];
-      if (mealTypes.dinner) dayMeals.dinner = LOCAL_MASTER_RECIPES[1];
-      generated.push({ dayNumber: day, meals: dayMeals });
-    }
-    setMenuDays(generated);
-    setActiveDayIndex(0);
-    if (shouldSwitchTab) {
-      setCurrentTab('menu');
     }
   };
 
@@ -492,9 +382,9 @@ export default function App() {
     generateMenuFromBackend(false);
   }, [lunchMode, daysCount, peopleCount, exclusions, mealTypes, city]);
 
-  // Расчет корзины покупок
   const basketAnalysis = useMemo(() => {
     const rawDemand = {};
+    const metaMap = {};
 
     menuDays.forEach((dayObj) => {
       Object.values(dayObj.meals).forEach((recipe) => {
@@ -506,6 +396,14 @@ export default function App() {
           }
           const amount = ing.amountPerPerson * peopleCount;
           rawDemand[ing.id] = (rawDemand[ing.id] || 0) + amount;
+          
+          if (!metaMap[ing.id]) {
+            metaMap[ing.id] = {
+              name: ing.name,
+              category: ing.category,
+              unit: ing.unit || 'г'
+            };
+          }
         });
       });
     });
@@ -514,10 +412,18 @@ export default function App() {
     const cityFactor = CITY_COEFFICIENTS[city]?.factor || 1.0;
 
     Object.entries(rawDemand).forEach(([ingId, requiredAmount]) => {
-      const isWeighted = weightedProduceEnabled && ingId.includes('potatoes') || ingId.includes('carrots') || ingId.includes('cabbage');
-      const packWeight = ingId === 'ing_eggs' ? 10 : 800;
-      const unit = ingId === 'ing_eggs' ? 'шт' : 'г';
-      const basePrice = 120;
+      const dictInfo = INGREDIENT_NAMES_MAP[ingId] || {};
+      const meta = metaMap[ingId] || {};
+      
+      const displayName = dictInfo.name || meta.name || ingId;
+      const category = dictInfo.category || meta.category || 'Продукты';
+      const unit = dictInfo.unit || meta.unit || (ingId === 'ing_eggs' ? 'шт' : 'г');
+      
+      const isWeighted = (weightedProduceEnabled && dictInfo.isWeighted) || 
+        (weightedProduceEnabled && (ingId.includes('potatoes') || ingId.includes('carrots') || ingId.includes('cabbage') || ingId.includes('beets')));
+      
+      const packWeight = dictInfo.packWeight || (unit === 'шт' ? 10 : 800);
+      const basePrice = dictInfo.price || 120;
 
       let packCount = 1;
       let totalBought = 0;
@@ -538,13 +444,13 @@ export default function App() {
 
       packedItems.push({
         id: ingId,
-        name: ingId.replace('ing_', '').replace('_', ' '),
-        category: 'Продукты',
+        name: displayName,
+        category: category,
         unit: unit,
         packWeight: packWeight,
         requiredGrams: Math.round(requiredAmount),
         packCount,
-        totalBought,
+        totalBought: Math.round(totalBought),
         leftover: Math.round(leftover),
         basePriceTotal: Math.round(basePriceTotal),
         isWeighted
@@ -612,7 +518,6 @@ export default function App() {
           </select>
         </header>
 
-        {/* Уведомление Toast */}
         {toastMessage && (
           <div className="fixed top-14 left-1/2 -translate-x-1/2 z-50 bg-emerald-600/95 text-white text-xs font-semibold px-4 py-2 rounded-full shadow-lg backdrop-blur-md border border-emerald-400/30 transition-all flex items-center gap-2">
             <Icons.Sparkles className="w-4 h-4 text-emerald-200" />
@@ -620,14 +525,14 @@ export default function App() {
           </div>
         )}
 
-        {/* Экран загрузки облачного сервера */}
         {isLoadingApi && (
           <div className="bg-emerald-950/40 border-b border-emerald-500/30 px-4 py-2 flex items-center justify-center gap-2 text-xs text-emerald-300 animate-pulse">
             <div className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-            <span>Обращение к облачному бэкенду на Render...</span>
+            <span>Запрос к облачной базе данных на Render...</span>
           </div>
         )}
 
+        {}
         <main ref={scrollContainerRef} className="flex-1 pb-24 overflow-y-auto">
           {currentTab === 'planner' && (
             <PlannerView
@@ -856,7 +761,7 @@ function PlannerView({
           Меню из удаленной базы данных
         </h2>
         <p className="text-xs text-slate-300 leading-relaxed">
-          Рецепты, граммовки и расчет корзин поступают с облачного сервера $24/7$ без необходимости держать ноутбук включенным.
+          Рецепты, аутентичные фотографии и расчет корзин поступают с облачного сервера $24/7$.
         </p>
       </div>
 
@@ -1110,7 +1015,7 @@ function PlannerView({
         className="w-full bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white font-bold py-3.5 px-4 rounded-2xl shadow-lg shadow-emerald-900/40 active:scale-[0.98] transition-all flex items-center justify-center gap-2 disabled:opacity-50"
       >
         <Icons.Sparkles className="w-5 h-5" />
-        <span>{isLoadingApi ? 'Запрос к серверу Render...' : 'Сформировать меню (через облако)'}</span>
+        <span>{isLoadingApi ? 'Запрос к серверу Render...' : 'Сформировать меню (из базы данных)'}</span>
       </button>
     </div>
   );
@@ -1210,7 +1115,7 @@ function MenuView({
         </button>
       </div>
 
-      {/* Карточки блюд */}
+      {/* Карточки блюд с фотографиями из базы данных */}
       <div className="space-y-4">
         {currentDay && Object.entries(currentDay.meals).map(([mealKey, recipe]) => {
           if (!recipe) return null;
@@ -1295,7 +1200,7 @@ function MenuView({
                 <div className="flex items-center gap-2 pt-1">
                   <button
                     onClick={() => onCookRecipe(recipe)}
-                    className="flex-1 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-semibold py-2 px-3 rounded-xl text-xs flex items-center justify-center gap-1.5 transition-all shadow-md"
+                    className="flex-1 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-semibold py-2 px-3 rounded-xl text-xs flex items-center justify-center gap-1.5 transition-all shadow-md active:scale-95"
                   >
                     <Icons.Play className="w-3.5 h-3.5 fill-current" />
                     <span>Готовить</span>
@@ -1377,7 +1282,7 @@ function BasketView({
       `Магазин: ${selectedStore?.name} (~${storePrice} ₽)\n`
     ];
     packedItems.forEach((item) => {
-      lines.push(`▫️ ${item.name} — ${item.totalBought}${item.unit}`);
+      lines.push(`▫️ ${item.name} — ${item.totalBought}${item.unit} (${item.category})`);
     });
 
     try {
@@ -1391,7 +1296,6 @@ function BasketView({
 
   return (
     <div className="p-4 space-y-4">
-      {/* 3 сети */}
       <div className="space-y-2">
         <div className="flex items-center justify-between">
           <span className="text-xs font-semibold text-slate-300 uppercase tracking-wider">
@@ -1449,7 +1353,7 @@ function BasketView({
         </button>
       </div>
 
-      {/* Список товаров */}
+      {/* Список товаров на русском языке */}
       <div className="space-y-1.5">
         {packedItems.map((item) => {
           const checked = checkedBasketItems[item.id];
@@ -1473,9 +1377,14 @@ function BasketView({
                 </div>
 
                 <div className="min-w-0">
-                  <p className="text-xs font-semibold truncate capitalize">{item.name}</p>
-                  <p className="text-[10px] text-slate-400 truncate">
-                    Нужно: {item.requiredGrams}{item.unit} • Покупка: <span className="font-mono text-emerald-400 font-bold">{item.totalBought}{item.unit}</span>
+                  <div className="flex items-center gap-1.5">
+                    <p className="text-xs font-semibold truncate capitalize">{item.name}</p>
+                    <span className="text-[9px] px-1.5 py-0.2 bg-slate-800 text-slate-400 rounded-md font-mono shrink-0">
+                      {item.category}
+                    </span>
+                  </div>
+                  <p className="text-[10px] text-slate-400 truncate mt-0.5">
+                    Потребность: {item.requiredGrams} {item.unit} • К покупке: <span className="font-mono text-emerald-400 font-bold">{item.totalBought} {item.unit}</span>
                   </p>
                 </div>
               </div>
@@ -1483,7 +1392,7 @@ function BasketView({
               <span className={`text-[10px] px-2 py-0.5 rounded-full font-semibold whitespace-nowrap shrink-0 ${
                 isZeroWaste ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-slate-800 text-slate-400'
               }`}>
-                {isZeroWaste ? '0 остатка ✨' : `Запас: ${item.leftover}${item.unit}`}
+                {isZeroWaste ? '0 остатка ✨' : `Запас: ${item.leftover} ${item.unit}`}
               </span>
             </div>
           );
@@ -1498,6 +1407,37 @@ function CookingModal({ recipe, peopleCount, onClose }) {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const currentStep = steps[currentStepIndex];
 
+  // Интерактивный таймер готовки
+  const [timeLeft, setTimeLeft] = useState(currentStep.durationSec || 180);
+  const [isTimerRunning, setIsTimerRunning] = useState(false);
+
+  useEffect(() => {
+    setTimeLeft(currentStep.durationSec || 180);
+    setIsTimerRunning(false);
+  }, [currentStepIndex, currentStep]);
+
+  useEffect(() => {
+    let interval = null;
+    if (isTimerRunning && timeLeft > 0) {
+      interval = setInterval(() => {
+        setTimeLeft(prev => prev - 1);
+      }, 1000);
+    } else if (timeLeft === 0 && isTimerRunning) {
+      setIsTimerRunning(false);
+      triggerHaptic('success');
+    }
+    return () => clearInterval(interval);
+  }, [isTimerRunning, timeLeft]);
+
+  const formatTimer = (sec) => {
+    const m = Math.floor(sec / 60);
+    const s = sec % 60;
+    return `${m}:${s < 10 ? '0' : ''}${s}`;
+  };
+
+  const totalDuration = currentStep.durationSec || 180;
+  const timerProgress = totalDuration > 0 ? ((totalDuration - timeLeft) / totalDuration) * 100 : 0;
+
   return (
     <div className="fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-xl flex flex-col p-4 overflow-y-auto">
       <div className="flex items-center justify-between pb-3 border-b border-slate-800">
@@ -1511,27 +1451,121 @@ function CookingModal({ recipe, peopleCount, onClose }) {
       </div>
 
       <div className="py-4 space-y-4 max-w-md mx-auto w-full">
-        <h2 className="text-base font-bold text-white">{recipe.title}</h2>
-        <div className="bg-slate-900 rounded-2xl p-4 border border-slate-800 space-y-2">
-          <h4 className="text-xs font-bold text-emerald-400 uppercase">Шаг {currentStepIndex + 1} из {steps.length}</h4>
-          <h3 className="text-sm font-bold text-white">{currentStep.title}</h3>
-          <p className="text-xs text-slate-200 leading-relaxed">{currentStep.instruction}</p>
+        <div>
+          <h2 className="text-base font-bold text-white">{recipe.title}</h2>
+          <p className="text-[11px] text-slate-400 font-mono mt-0.5">
+            ⏱ Общее время: ~{recipe.prepTimeMin} мин • Шаг {currentStepIndex + 1} из {steps.length}
+          </p>
         </div>
 
-        <div className="flex gap-2">
+        {/* Карточка текущего шага */}
+        <div className="bg-slate-900 rounded-2xl p-4 border border-slate-800 space-y-3 shadow-xl">
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider bg-emerald-950/60 px-2 py-0.5 rounded-md border border-emerald-500/30">
+              Шаг {currentStepIndex + 1}
+            </span>
+            <span className="text-xs font-bold text-slate-300 font-mono">
+              ~{Math.round((currentStep.durationSec || 180) / 60)} мин
+            </span>
+          </div>
+
+          <h3 className="text-sm font-bold text-white">{currentStep.title}</h3>
+          <p className="text-xs text-slate-200 leading-relaxed">{currentStep.instruction}</p>
+
+          {/* Плашки огня, готовности и шефа */}
+          <div className="space-y-2 pt-2 border-t border-slate-800/80">
+            {currentStep.heat && (
+              <div className="flex items-center gap-2 text-xs bg-amber-950/30 border border-amber-500/30 text-amber-300 p-2 rounded-xl">
+                <Icons.Flame className="w-4 h-4 shrink-0 text-amber-400" />
+                <span><strong>Нагрев:</strong> {currentStep.heat}</span>
+              </div>
+            )}
+
+            {currentStep.visualMarker && (
+              <div className="flex items-center gap-2 text-xs bg-sky-950/30 border border-sky-500/30 text-sky-300 p-2 rounded-xl">
+                <Icons.Eye className="w-4 h-4 shrink-0 text-sky-400" />
+                <span><strong>Ориентир готовности:</strong> {currentStep.visualMarker}</span>
+              </div>
+            )}
+
+            {currentStep.chefTip && (
+              <div className="flex items-center gap-2 text-xs bg-emerald-950/30 border border-emerald-500/30 text-emerald-300 p-2 rounded-xl">
+                <Icons.Sparkles className="w-4 h-4 shrink-0 text-emerald-400" />
+                <span><strong>Совет шефа:</strong> {currentStep.chefTip}</span>
+              </div>
+            )}
+          </div>
+
+          {/* Интерактивный кулинарный таймер */}
+          <div className="mt-3 p-3 bg-slate-950 rounded-xl border border-slate-800 space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="text-[10px] uppercase font-bold text-slate-400 flex items-center gap-1">
+                <Icons.Timer className="w-3.5 h-3.5 text-emerald-400" /> Таймер процесса
+              </span>
+              <span className={`text-base font-black font-mono ${timeLeft === 0 ? 'text-rose-400 animate-pulse' : 'text-emerald-400'}`}>
+                {timeLeft === 0 ? 'Готово! 🎉' : formatTimer(timeLeft)}
+              </span>
+            </div>
+
+            <div className="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
+              <div
+                className="bg-emerald-500 h-1.5 rounded-full transition-all duration-300"
+                style={{ width: `${timerProgress}%` }}
+              />
+            </div>
+
+            <div className="flex gap-2 pt-1">
+              <button
+                type="button"
+                onClick={() => {
+                  triggerHaptic('light');
+                  setIsTimerRunning(!isTimerRunning);
+                }}
+                className={`flex-1 py-1.5 px-3 rounded-lg text-xs font-bold flex items-center justify-center gap-1 transition-all ${
+                  isTimerRunning ? 'bg-amber-600 text-white' : 'bg-emerald-600 text-white'
+                }`}
+              >
+                {isTimerRunning ? <Icons.Pause className="w-3.5 h-3.5 fill-current" /> : <Icons.Play className="w-3.5 h-3.5 fill-current" />}
+                <span>{isTimerRunning ? 'Пауза' : 'Старт таймера'}</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  triggerHaptic('light');
+                  setIsTimerRunning(false);
+                  setTimeLeft(currentStep.durationSec || 180);
+                }}
+                className="py-1.5 px-3 rounded-lg text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 transition-colors flex items-center gap-1"
+              >
+                <Icons.RotateCcw className="w-3.5 h-3.5" />
+                <span>Сброс</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Навигация по шагам */}
+        <div className="flex gap-2 pt-2">
           <button
             disabled={currentStepIndex === 0}
-            onClick={() => setCurrentStepIndex(c => Math.max(0, c - 1))}
-            className="flex-1 bg-slate-800 disabled:opacity-40 text-slate-300 py-2.5 rounded-xl text-xs font-semibold"
+            onClick={() => {
+              triggerHaptic('light');
+              setCurrentStepIndex(c => Math.max(0, c - 1));
+            }}
+            className="flex-1 bg-slate-800 disabled:opacity-40 text-slate-300 py-3 rounded-xl text-xs font-semibold"
           >
-            Назад
+            ← Предыдущий шаг
           </button>
           <button
             disabled={currentStepIndex === steps.length - 1}
-            onClick={() => setCurrentStepIndex(c => Math.min(steps.length - 1, c + 1))}
-            className="flex-1 bg-emerald-600 disabled:opacity-40 text-white py-2.5 rounded-xl text-xs font-semibold"
+            onClick={() => {
+              triggerHaptic('light');
+              setCurrentStepIndex(c => Math.min(steps.length - 1, c + 1));
+            }}
+            className="flex-1 bg-emerald-600 disabled:opacity-40 text-white py-3 rounded-xl text-xs font-semibold"
           >
-            Далее
+            Следующий шаг →
           </button>
         </div>
       </div>
@@ -1547,7 +1581,15 @@ function ImageLightboxModal({ imageObj, onClose }) {
         <button onClick={onClose} className="absolute top-3 right-3 z-10 p-2 rounded-full bg-slate-950/80 text-white">
           <Icons.Close className="w-5 h-5" />
         </button>
-        <img src={imageObj.url} alt={imageObj.title} className="w-full h-72 object-cover" />
+        <img
+          src={imageObj.url}
+          alt={imageObj.title}
+          className="w-full h-72 object-cover"
+          onError={(e) => {
+            e.currentTarget.onerror = null;
+            e.currentTarget.src = FALLBACK_FOOD_IMG;
+          }}
+        />
         <div className="p-4">
           <h3 className="text-base font-bold text-white leading-snug">{imageObj.title}</h3>
         </div>
