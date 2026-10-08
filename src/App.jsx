@@ -1378,7 +1378,7 @@ function BasketView({
 
                 <div className="min-w-0">
                   <div className="flex items-center gap-1.5">
-                    <p className="text-xs font-semibold truncate capitalize">{item.name}</p>
+                    <p className="text-xs font-semibold truncate">{item.name}</p>
                     <span className="text-[9px] px-1.5 py-0.2 bg-slate-800 text-slate-400 rounded-md font-mono shrink-0">
                       {item.category}
                     </span>
